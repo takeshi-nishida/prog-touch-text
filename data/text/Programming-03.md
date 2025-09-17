@@ -1,0 +1,420 @@
+---
+title: "アニメーションとインタラクション"
+description: ""
+updated: ""
+slug: "Programming-03"
+keywords: ["イベント", "変数の有効範囲"]
+prev: "Programming-02"
+next: "Programming-04"
+parent: null
+---
+
+# アニメーションとインタラクション
+
+マウスやキーボードで操作することができる（＝インタラクティブな）動きのあるプログラムを作成できるようになりましょう。
+
+## リサイズするプログラムを作る section3-1
+
+まずは、操作するならキャンバスは広い方がよいということでウィンドウ全体に広げましょう。ブラウザのウィンドウのサイズに追従してキャンバスのサイズも変わるようにします。
+
+```javascript
+function setup(){
+  createCanvas(windowWidth, windowHeight); // キャンバスの大きさをウィンドウの大きさと同じにする
+}
+
+function windowResized(){ // ウィンドウがリサイズされるたびにこの関数が自動的に実行される
+  resizeCanvas(windowWidth, windowHeight); // キャンバスをリサイズする（createCanvasではないので注意）
+}
+
+function draw(){
+  background(160, 192, 255);
+}
+```
+
+キャンバスのサイズが可変になりましたので、プログラムもリサイズに対応させる必要があります。 たとえば、何かを真ん中に描画したい場合、キャンバスサイズが 200x200 であれば (100, 100) が、キャンバスサイズが 100x100 であれば (50, 50) が真ん中というようにサイズによって座標が変わるわけです。 キャンバスサイズについての情報は width と height で取得できますので、これを利用して座標を計算すればOKです。 次に具体的な例を示しますので、実際にウィンドウのサイズを変えてみてください。
+
+```javascript
+function draw(){
+  background(160, 192, 255);
+  for(let i = 0; i < 10; i++){
+    ellipse(width * i / 10, height * (10 - i) / 10, 20);
+  }
+  text("center!", width * 0.5, height * 0.5);
+}
+```
+
+## アニメーションの基本 section3-2
+
+p5.js でアニメーションを作るときには繰り返し実行し続けられる `draw` 関数の中に、繰り返し毎に少しずつ変化するプログラムを書きます。 「少しずつ変化する」部分には変数を使います。 次の例は丸が右下に移動していくアニメーションです。 変数 x, y の値が少しずつ変化するので、円の場所が変化し、動いて見えるというわけです。
+
+```javascript
+let x, y; // ポイント1：関数の外で変数を宣言する
+
+function setup(){
+  createCanvas(windowWidth, windowHeight);
+  x = width / 2;
+  y = height / 2;
+}
+
+function draw(){
+  background(160, 192, 255); // ポイント2: draw の最初に background を書く
+  ellipse(x, y, 30);
+  x += 2;
+  y -= 2;
+}
+```
+
+この例を理解するためのポイントは「関数 `draw` の最初に `background(...)` を書くこと」と「変数を関数の外で宣言する」ことです。
+
+関数 `draw` の最初に `background(...)` を書くのは、前回の描画を上塗りして消すために必要です。 試しに一時的にその部分を `// background(160, 192, 255);` とコメントにしてみてください。 繰り返し描画する円が残っているとアニメーションには見えなくなってしまいます。
+
+変数を関数の外で宣言することについてはちょっと長めの説明が必要です。
+
+### 変数のスコープ（有効範囲）
+
+変数は宣言が含まれるブロック `{ ... }` の中でのみ使用することができます。 変数を利用できる範囲のことを スコープ (有効範囲) と言います。
+
+先ほどの例を変更して、たとえば次のように `setup()` の中に変数宣言を持ってくると `draw()` の中では使えなくなってしまいます。 「変数 x は宣言されていません」というエラーが `draw()` で発生することになります。
+
+```javascript
+function setup(){ // 変数の有効範囲は setup 内のみ
+  let x, y;
+  createCanvas(windowWidth, windowHeight);
+  x = width / 2;
+  y = height / 2;
+}
+
+function draw(){
+  // こちらでは x,y が使えない
+}
+```
+
+それなら次のように両方で宣言すればいいのでは？と思うかもしれませんが…これもうまくいきません。
+
+```javascript
+function setup(){
+  let x, y; // setup 内で有効
+  ...
+}
+
+function draw(){
+  let x, y; // 上で宣言した変数とは別物。drawの実行N回目とN+1回目でも別物。
+}
+```
+
+たとえ名前が同じでもスコープが違えば別物です。`setup()` 内で宣言した x に値を代入しても `draw()` 内の x の値は変わりません。 また、関数内で宣言された変数は関数呼び出しごとに新しく作られますので、 N回目の `draw()` で変数の値を変更したつもりでもN+1回目の実行時に持ち越すことはできません。 関数の外で変数を宣言すればプログラム全体で有効となるのでどの関数からも共通の変数を使うことができるというわけです。
+
+変数のスコープはプログラミング言語によって変わりがちなので、違うプログラミング言語を学ぶときには注意が必要です。
+
+### いろいろな動きのアニメーションと画面端の処理
+
+先ほどの例では丸が画面外に行ったきり戻ってきません。画面端での処理についていくつかのパターンを見てみましょう。
+
+#### (1) 反対側から出てくる
+
+まずは画面外に出たら反対側からそのまま出てくるパターンです。 条件分岐を使って、画面外の座標になっている場合には反対側の位置になるように新しい座標を代入します。
+
+```javascript
+function draw(){
+  background(160, 192, 255);
+  ellipse(x, y, 30);
+  x += 2;
+  y -= 2;
+  // ここから下が画面外に行ったら反対側から出てくるようにする処理
+  if(x > width){ x = 0; }
+  else if(x < 0){ x = width; }
+  if(y > height){ y = 0; }
+  if(y < 0){ y = height; }
+}
+```
+
+![](./images/animation_edge1.gif)
+
+以下のように、同じ画面端の処理を条件分岐の代わりに割った余りの計算で書くこともできます。どうしてこれでいけるのか考えてみてください。
+
+```javascript
+x = (x + width) % width;
+y = (y + height) % height;
+```
+
+#### (2) 跳ね返る
+
+続いては、画面の端で跳ね返るパターンです。 跳ね返るたびに進む方向が変わりますので、位置に加えて移動方向を覚えておくための変数が必要になります。 2次元上の位置が2つの値で表現できるのと同じように、2次元上での移動方向も2つの値で表現することができます。 x座標方向に進む速度 vx と y 座標方向に進む速度 vy を追加しましょう。
+
+```javascript
+let x, y, vx, vy;
+
+function setup(){
+  createCanvas(windowWidth, windowHeight);
+  x = width / 2;
+  y = height / 2;
+  vx = 2;
+  vy = 2;
+}
+
+function draw(){
+  background(160, 192, 255);
+  ellipse(x, y, 30);
+
+  // 速度は「位置の変化量」
+  x += vx;
+  y += vy;
+
+  // 跳ね返りは「速度 × -1」
+  if(x < 0 || x > width){ vx = -1 * vx; }
+  if(y < 0 || y > height){ vy = -1 * vy; }
+
+  // x座標, y座標を画面内に戻しておく
+  x = constrain(x, 0, width);
+  y = constrain(y, 0, height);
+}
+```
+
+![](./images/animation_edge2.gif)
+
+速度は単位時間中に進む距離のことです。p5.js では draw 一回で進む距離として表現できます。 跳ね返るというのはつまり進む向きが逆になるということですから、速度に -1 をかけることで表現できます。 x, y を画面内になるようにして完成です。 ここでは `constrain(n, low, high)` という便利な関数を使っています。 low 以下だったら low を high 以上だったら high をそれ以外は n を返す関数です。
+
+#### (3) 重力、床に弾む
+
+画面下方向に重力がかかっていて落ちていき、床でボールのように弾むアニメーションも見てみましょう。 重力は速度の変化量として表現できます。物理では「重力加速度」と呼ばれるものですね。 普通、重力は常に一定ですので定数とするのがよいでしょう。
+
+```javascript
+let x, y, vx, vy;
+const g = 1; // 重力
+const vyMax = 20;
+
+// setup は上と同じなので省略
+
+function draw(){
+  background(160, 192, 255);
+  ellipse(x, y, 30);
+  x += vx;
+  y += vy;
+  vy += g; // 重力は「速度の変化量」
+  vy = constrain(vy, -vyMax, vyMax); // 速度が大きくなりすぎないように調整
+  if(x < 0 || x > width){ vx = -1 * vx; }
+  if(y < 0 || y > height){ vy = -1 * vy; }
+  y = constrain(y, 0, height);
+}
+```
+
+![](./images/animation_edge3.gif)
+
+重力の値を変えるとアニメーションの様子がどのように変わるか観察してみましょう。
+
+## マウス操作に反応する
+
+次はマウス操作に反応するプログラムを作ります。マウスカーソルの位置（座標）、マウスボタンが押されているかどうかの値を保持している変数を p5.js が用意していますのでそれを利用します。
+
+mouseX, mouseY
+
+マウスのx座標, y座標
+
+pmouseX, mouseY
+
+少し前のマウスのx座標, y座標（マウスがどう動いたかを知るために必要）
+
+mouseIsPressed
+
+マウスボタンが押されているかどうか（押されていたら true、押されていなければ false）
+
+たとえば次のように使います。マウスの動きに円が追随し、マウスボタンを押しているかどうかで円の大きさが変わります。
+
+```javascript
+function draw(){
+  background(5, 39, 94);
+  if(mouseIsPressed){
+    ellipse(mouseX, mouseY, 30);
+  }
+  else{
+    ellipse(mouseX, mouseY, 20);
+  }
+}
+```
+
+### イベント
+
+マウスがクリックされたときだけに何かするようなプログラムを作るにはどうすればいいでしょうか。 クリックは、マウスボタンの状態が「押されていない→押されている→押されていない」と短時間で変化することです。 これを正しく判定するためには、ボタンの押し下げ状態の履歴を時刻とともに保持しておく必要があり、少し面倒です。
+
+このようなプログラムを書きやすくするため、特定の事象（＝イベント）が生じたときに行う処理を記述するための仕組みが用意されています。
+
+次のように関数 `mouseClicked()` を作っておくと、クリック時に実行されます。 上の例と違ってクリックしたときにだけ円の位置が変わります。
+
+```javascript
+let x, y;
+
+function setup(){
+  createCanvas(windowWidth, windowHeight);
+  x = width / 2;
+  y = height / 2;
+}
+
+function draw(){
+  background(5, 39, 94);
+  ellipse(x, y, 30);
+}
+
+function mouseClicked(){
+  x = mouseX;
+  y = mouseY;
+}
+```
+
+`mouseClicked()` の中では変数に円を描画すべき座標を代入するだけで、描画の処理は `draw()` で行っているのがポイントです。 次に示すように `mouseClicked()` の中に描画処理を描いてもすぐに `draw()` の描画処理によって上書きされて消えてしまいます。 よくある間違いなので気を付けましょう。
+
+```javascript
+function draw(){
+  background(5, 39, 94);
+}
+
+function mouseClicked(){
+  ellipse(mouseX, mouseY, 30); // ここに描画処理を描いてもうまくいきません
+}
+```
+
+このような、イベント発生時に実行される関数のことを「イベントハンドラ (event handler)」と呼びます。 マウス関連だけでも多くの種類のイベントハンドラが用意されています。 これらの名前の関数を作っておくと p5.js がそれぞれのイベントが発生したタイミングで呼び出してくれます。
+
+mouseClicked(), doubleClicked()
+
+クリックされたとき、ダブルクリックされたとき
+
+mousePressed(), mouseReleased()
+
+ボタンを押したとき、離したとき
+
+mouseMoved(), mouseDragged()
+
+マウスを動いたとき、ドラッグした（ボタンを押したまま動いた）とき
+
+mouseWheel()
+
+マウスホイールを回したとき
+
+イベント発生時にする処理を書く書き方のことを「イベント駆動型 (event driven) プログラミング」と呼びます。
+
+## キーボード操作に反応する section3-3
+
+キーボードでの操作に関してはマウスの場合とほとんど同じですが、キーの種類が多く同時押しが可能な点が少し異なります。 上下左右キーで円を動かすプログラムの例でイベントハンドラを使う書き方と使わない書き方を見比べていきましょう。まずはイベントハンドラを使わない書き方です。
+
+```javascript
+let x, y;
+
+function setup(){
+  createCanvas(windowWidth, windowHeight);
+  x = width / 2;
+  y = height / 2;
+}
+
+function draw(){
+  background(160, 192, 255);
+  ellipse(x, y, 50);
+  // キーの処理（else ifにすると同時押しできなくなってしまうので要注意）
+  if(keyIsDown(LEFT_ARROW)){ x -= 5; }
+  if(keyIsDown(RIGHT_ARROW)){ x += 5; }
+  if(keyIsDown(UP_ARROW)){ y -= 5; }
+  if(keyIsDown(DOWN_ARROW)){ y += 5; }
+  if(keyIsDown("A".charCodeAt(0))){ x+= 10; } // 文字キーの場合
+  if(keyIsDown(" ".charCodeAt(0))){ x-= 10; } // スペースキーも文字キーと同様
+}
+```
+
+あるキーが押されているかどうかを調べるには関数 `keyIsDown(...)` を使います。 文字キー以外は LEFT\_ARROW といった定数を使用します。矢印キー以外には TAB, ESCAPE, SHIFT, CONTROL などがあります。 文字キーの場合にはその文字のコードで判定する必要があるので `charCodeAt()` を使います。スペースキーも文字キーと同様になります。
+
+`draw()` の中で処理していますので、キーを押している間、繰り返し処理されて連続的に円が動きます。 複数のキーを同時に押した場合は押しているキーに対応する処理がすべて実行されますので、斜めに移動することもできます。 （条件分岐を else if で書いてしまうと同時押しができなくなってしまうので注意しましょう。）
+
+次はイベントハンドラを使う書き方です。 キーを押したときだけ `keyPressed()` が実行されますので、たくさん動くためにはキーを何回も押す必要があります。
+
+```javascript
+// 上と共通の部分は省略
+
+function draw(){
+  background(160, 192, 255);
+  ellipse(x, y, 50);
+}
+
+function keyPressed(){
+  if(keyCode == LEFT_ARROW){ x -= 5; } // 文字以外のキーは keyCode を使う
+  else if(keyCode == RIGHT_ARROW){ x+= 5; }
+  else if(keyCode == DOWN_ARROW){ y += 5; }
+  else if(keyCode == UP_ARROW){ y -= 5; }
+  else if(key == "A"){ x+= 10; } // 文字キーの場合は key を使う
+}
+```
+
+イベントに関わるキーが文字キーの場合は key を、文字以外のキーの場合は keyCode を調べます。 イベントハンドラでは `keyIsDown(...)` は使いません。
+
+キーボードに関するイベントは以下の通りです。
+
+関数 keyPressed(), keyReleased()
+
+キーを押したとき、離したときのイベントハンドラ
+
+関数 keyTyped()
+
+文字が入力されたときのイベントハンドラ（シフトキーによる大文字小文字の打ち分けに対応）
+
+## インタラクティブなアニメーション section3-4
+
+マウスやキーボードによる操作とアニメーションは組み合わせることができます。 次に示す例は、跳ね返るアニメーションにマウスで円をつかんで投げることができる機能、スペースキーを押したらリセットする機能を付け加えたものです。 基本的には既に出てきた内容の組み合わせです。
+
+```javascript
+let x, y, vx, vy;
+let grabbed; // 円をつかんでいるかどうかを記憶するために使う変数
+
+function setup(){
+  createCanvas(windowWidth, windowHeight);
+  x = width / 2;
+  y = height / 2;
+  vx = 0;
+  vy = 0;
+  grabbed = false;
+}
+
+function draw(){
+  background(160, 192, 255);
+  ellipse(x, y, 30);
+  if(!grabbed){ // つかんでいないときだけアニメーションさせる
+    x += vx;
+    y += vy;
+    if(x < 0 || x > width){ vx = -0.8 * vx; }
+    if(y < 0 || y > height){ vy = -0.8 * vy; }
+    x = constrain(x, 0, width);
+    y = constrain(y, 0, height);
+  }
+}
+
+function keyPressed(){
+  if(key == " "){ // スペースキーを押したらリセット
+    x = width / 2;
+    y = height / 2;
+    vx = 0;
+    vy = 0;
+    grabbed = false;  
+  } 
+}
+
+function mousePressed(){
+  grabbed = dist(mouseX, mouseY, x, y) < 30; // 新登場の dist 関数は２点の距離を求める関数（grabbed には true か false が代入される）
+}
+
+function mouseDragged(){
+  if(grabbed){ // つかんでいるときは円がマウスに追従する
+    x = mouseX;
+    y = mouseY;
+  }
+}
+
+function mouseReleased(){
+  if(grabbed){
+    grabbed = false;
+    vx = mouseX - pmouseX; // pmouseX は少し前のマウスのx座標
+    vy = mouseY - pmouseY; // pmouseY は少し前のマウスのy座標
+  }
+}
+```
+
+`mousePressed()` の中で図形の位置とマウスの位置を比較することで物をつかみ、つかんでいるかどうかによって処理を変えるというのは定番パターンなので覚えてしまいましょう。
+
+少し前のマウスの座標を保持する pmouseX, pmouseY を利用すると、マウスの動いた方向を知ることができます。 上の例ではその方向に円を動かすことによってマウスで円を投げたように見せています。
+
+他にも [p5.js レシピ集](Programming-Recipes.html) にアニメーションの例をいくつか載せていますので見てみてください。

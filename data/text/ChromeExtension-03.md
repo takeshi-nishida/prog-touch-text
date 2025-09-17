@@ -1,0 +1,319 @@
+---
+title: "3. 機能追加編 - Chrome 拡張機能を作ろう"
+description: ""
+updated: ""
+slug: "ChromeExtension-03"
+keywords: []
+prev: "ChromeExtension-02"
+next: null
+parent: null
+---
+
+# Chrome 拡張機能を作ろう 機能追加編
+
+[前回](ChromeExtension-02.html)までは元ページの軽微な改変をしてきました。 今回は元ページに機能を追加するための方法を学びましょう。
+
+多くのアプリにはブラウザだけで利用できるウェブ版があります。 ウェブページに機能を追加できるということは、SNSやコミュニケーションアプリなどにも機能を追加できるということです。 新しい機能のアイデアがあったとしても、ゼロからアプリを開発して、そのアプリを使ってくれるユーザを獲得して…というのはとてもとても大変です。 **既存のアプリに機能を追加する方法は、新しいアイデアを手早く試して評価するというデザイン・研究に使える武器のひとつになる**はずです。
+
+## 1\. HTML要素を作って追加する
+
+`document.createElement(タグ名)` で要素を作り、 `追加される要素.appendChild(追加する要素)` で追加するのが基本的な方法です。 たとえばこのページを開いた状態で次のプログラムを開発ツールの Console で実行するとボタンが追加されます。
+
+```javascript
+let element = document.createElement("button"); // <button></button> ができる
+element.textContent = "Push Me!";               // <button>Push Me!</button> ができる
+let target = document.querySelector("#create_and_append"); // 追加したい要素を見つけてくる
+target.appendChild(element); // 追加する
+```
+
+createElement で作った要素は空っぽなので中身を追加してあげる必要があります。
+
+追加される要素を取得するには querySelector を利用しています。 **querySelectorAll が指定した条件を満たす要素のリスト (NodeList) を返すのに対して、 querySelector は条件を満たす最初の Node を返します。**
+
+HTML要素の作り方には他にも複数の方法があります。
+
+-   createElement を使う (上でやった方法です)
+-   innerHTML を使う
+-   文書中にある要素をクローンする
+-   難 別ファイルを読み込む (難しいので今回は省略)
+
+### innerHTML を使う
+
+要素の中身がさらに別の要素になっているようなちょっと複雑な要素を作りたいときには innerHTML を利用すると便利です。
+
+```javascript
+let element = document.createElement("button"); // <button></button> ができる
+element.innerHTML = "<del>Push Me</del>"; // <button><del>Push Me!</del></button> ができる
+```
+
+これは以下のプログラムと同じ結果になります。ちょっと短くなるのがわかると思います。
+
+```javascript
+let element = document.createElement("button"); // <button></button> ができる
+let element2 = document.createElement("del"); // <del></del> ができる
+element2.textContent = "Push Me!"; // <del>Push Me!</del> ができる
+element.appendChild(element2);  // <button><del>Push Me!</del></button> ができる
+```
+
+### 文書中にある要素をクローンする
+
+追加したい要素と似ている要素が文書中にある場合にはそのクローンを作って追加すると、見た目の指定などが省けるので楽です。 このページを開いたまま次のプログラムを Console で実行すると、 少し上にある「難」のバッジを見た目もそのままにクローンして上の見出しに追加します。
+
+```javascript
+let clone = document.querySelector(".badge").cloneNode(true);
+clone.textContent = "やや難";
+document.querySelector("#clone").appendChild(clone);
+```
+
+### 実践: TweetDeck にボタンを追加する
+
+今回作成する拡張機能のマニフェストファイルです。 新しいフォルダを作成してその中に manifest.json という名前で保存してください。
+
+```json
+{
+  "name": "Sample TweetDeck Extension",
+  "description": "Adds Playful Extras to TweetDeck (which has easier HTML/CSS compared to Twitter)",
+  "version": "0.1",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["https://tweetdeck.twitter.com/*"],
+      "js": ["content_script.js"]
+    }
+  ]
+}
+```
+
+マニフェストファイルを見たらわかるように今回は [TweetDeck](https://tweetdeck.twitter.com/) に対する拡張機能を作ります。 TweetDeck は、画面いっぱいにたくさんのツイートを表示しておくことができる、 Twitter をヘビーに利用する方向けのウェブアプリです。 **そもそも Twitter やってないんですけどという人は知りません！** 今回は各種の機能を持ったボタンをサイドバーに追加してみます。
+
+次は content\_script.js です。新出の概念 (「説明ポイント」とあるところ) については下で説明します。 最後まで完成したプログラムは[ここにあります](https://github.com/takeshi-nishida/chrome-extension-samples/tree/master/add_features_tweetdeck)。
+
+```javascript
+addFeaturesAttempt();
+
+// Retry addButtons() until it succeeds
+// 説明ポイント(1)
+function addFeaturesAttempt(){
+  if(!addButtons()) setTimeout(addFeaturesAttempt, 500); // retry after 500 millisecconds
+}
+
+
+// Add Buttons to the sidebar (returns false if the sidebar is not ready yet)
+function addButtons(){
+  const nav = document.querySelector("nav.app-navigator");
+  if(!nav) return false; // the sidebar was not ready yet
+
+  let b;
+
+  b = createSideBarButton("Fortune", "運");
+  nav.appendChild(b);
+
+  return true;
+}
+
+
+function createSideBarButton(labelText, iconText){
+  // 1. Clone the setting button in the sidebar
+  const original = document.querySelector("a.js-app-settings");
+  const b = original.cloneNode(true);
+
+  // 2. Remove "data-title" and "data-action" attributes, to remove original button actions
+  // 説明ポイント(2)
+  b.removeAttribute("data-title");
+  b.removeAttribute("data-action");
+
+  // 3. Change label and icon
+  // 説明ポイント(3)
+  b.querySelector(".app-nav-link-text").textContent = labelText;
+  const icon = b.querySelector("i");
+  icon.classList.remove("icon-settings");
+  icon.textContent = iconText;
+
+  return b;
+}
+```
+
+ここまでの段階で一度、拡張機能として Chrome に読み込みましょう。やり方は [前回と同じ](ChromeExtension-02.html#tutorial) です。 [TweetDeck](https://tweetdeck.twitter.com/) にログインして、ボタンが追加されていることを確認してください。 ボタンのアイコンは作る余裕がなかったので漢字アイコンにしました。 まだボタンを押したときの処理はないので、押しても何も起きません。
+
+-   説明ポイント(1) 拡張機能はページがロードされた直後に動作しますが、ボタンを追加したいサイドバーがその時点ではまだないという問題があります。 上のプログラムでは「サイドバーがあるか確認して、なかったらしばらく待ってやり直す」ことでこれを解決しています。 しばらく待ってから実行するために使うのが `setTimeout(実行する関数, 待ち時間[ms])` です。
+-   説明ポイント(2) クローンしたボタンにはクローン元ボタンの機能（押したら～する）が一緒に付いてきますので、これを消さなければいけません。 ボタンを押したときの処理は `onclick` で追加するのが普通ですが（詳しくは後述）、 TweetDeck では属性を使って処理を指定するという少し変わった方法を使っているので、その属性を消しています。 こういう勘所はかなりウェブ開発に精通しないとわからないので、 クローンでうまくいかないときはスパッと諦めて `document.createElement(...)` で地道に作っていくことも必要でしょう。
+-   説明ポイント(3) クローンしたボタンのテキストとアイコンを変更して完成です。ここで変更したい箇所を指定するために `document.querySelector(...)` ではなく、`要素.querySelector(...)` を使っていることに注意してください。 ページ全体から指定した条件にあてはまる要素を探す代わりに、**ある要素に含まれる要素の中だけで条件に当てはまる要素を探す**ことができます。
+
+### やってみよう
+
+自然に要素を追加するためには元ページをまずよく観察することが必要です。 「ここに追加したい」「これをクローンしたい」という部分にマウスカーソルを合わせて、右クリックメニューから「検証」を選ぶとその部分の HTML を開発ツールで見ることができますので、 その部分だけに指定されている id や class を特定します。 **※id や class が付いていなかったり、付いているけどランダムな文字列だったりするページは拡張機能を作りにくいページだと思ってよいでしょう。 広告を消してしまう拡張機能などが流行っている対策として HTML を複雑にするページも増えています。**
+
+## 2\. イベントハンドラを追加する
+
+次にボタンをクリックしたときの動作を作ります。 まずは「ランダムにユーザ情報を表示する」おみくじのような機能を作ってみます。 もともとのページに、アイコンをクリックするとユーザ情報を表示する機能が備わっているので、 「ランダムにアイコンを選んでそれをクリックする」ことで作ることができます。
+
+「～したときに～する」という処理はイベントハンドラとして作ります。 [p5.js でも出てきました](Programming-04.html#mouse) が書き方が違います。 `要素.onclick = 関数名` というように、要素にイベントハンドラを登録する格好です。
+
+```javascript
+function addButtons(){
+  ...
+  b = createSideBarButton("Fortune", "運");
+  b.onclick = fortuneButtonClicked; // 関数の名前を使って追加
+  nav.appendChild(b);
+  ...
+}
+
+// ボタンを押したときに実行してほしい関数
+function fortuneButtonClicked(){
+  const bs = document.querySelectorAll(".account-link"); // アイコンをすべて取ってきて
+  const b = bs[Math.floor(Math.random() * bs.length)];   // その中からランダムにひとつ選んで
+  b.click(); // クリックする
+}
+```
+
+ランダムにひとつ選ぶのは「0 から length までのランダムな整数」を作ることで実現できます。
+
+ここまでを追加して、拡張機能と TweetDeck のページをそれぞれ再読み込みしてください。 「運」ボタンをクリックするとランダムにユーザ情報が表示されるはずです。
+
+### やってみよう
+
+-   クリック以外にどんなイベントがあるか調べてみよう。ヒント：「javascript イベント」などとウェブ検索。
+-   他の部分をクリックするように変えると、たとえばランダムにリツイートする機能、全部いいねする機能なども作れます。やばいけど。
+
+## 3\. 見た目を操作する
+
+次に、全部のツイートの高さ（縦の長さ）を短くしてぎゅっと圧縮するボタンを作ることを考えます。 ツイートの高さは見た目ですので CSS を使って変更できます。 まずは manifest.json に CSS を使うことを書き足してください。
+
+```json
+"content_scripts": [
+  {
+    "matches": ["https://tweetdeck.twitter.com/*"],
+    "js": ["content_script.js"],
+    "css": ["content_style.css"]
+  }
+]
+```
+
+content\_style.css は短めです。overflow は要素が小さくなりすぎて中身が入りきらなくなったときどう表示するかを指定するものです。
+
+```css
+.shrinked{
+  height: 91px;
+  overflow: hidden;
+}
+```
+
+ボタンをクリックしたときに、この class を要素に追加するようにプログラムを書いたら完成です。 追加するときは `要素.classList.add(...)` を使って、 削除するときは `要素.classList.remove(...)` とします。 ツイートはたくさんありますので、繰り返しでの処理になります。
+
+```javascript
+function addButtons(){
+...
+  // 3行追加
+  b = createSideBarButton("Shrink", "大");
+  b.onclick = shrinkButtonClicked;
+  nav.appendChild(b);
+...
+}
+
+function shrinkButtonClicked(){
+  const icon = this.querySelector("i");
+  const shrink = icon.textContent == "大";
+
+  const tweets = document.querySelectorAll("article");
+  for(let i = 0; i < tweets.length; i++){
+    const tweet = tweets[i];
+    if(shrink) tweet.classList.add("shrinked"); // 要素.classList.add(...) すると見た目が変わる
+    else tweet.classList.remove("shrinked");    // 要素.classList.remove(...) すると見た目が戻る
+  }
+  icon.textContent = shrink ? "密" : "大"
+}
+```
+
+もう1回クリックしたら元に戻るようにするため条件分岐を使っています。
+
+## 4\. イベントハンドラで要素を追加する
+
+次は、各カラムごとに誰が多くツイートしているかがわかりやすいように、アイコンをまとめて表示するボタンを作ります。 アイコンは表示されているツイートのものをクローンして作ります。 3つの関数にわたっていてなかなかわかりにくいかもしれませんが、ほとんどこれまでにやった内容だけでできています。
+
+```javascript
+function addButtons(){
+  ...
+  // またもや3行追加
+  b = createSideBarButton("Avatars", "像");
+  b.onclick = avatarsButtonClicked;
+  nav.appendChild(b);
+  ...
+}
+
+function avatarsButtonClicked(){
+  const columns = document.querySelectorAll("section.column");
+  for(let i = 0; i < columns.length; i++){
+    showAvatars(columns[i]);
+  }
+}
+
+function showAvatars(column){
+  const target = getTargetArea(column);
+  const avatars = column.querySelectorAll("img.avatar");
+  for(let i = 0; i < avatars.length; i++){
+    const clone = avatars[i].cloneNode(true);
+    clone.classList.remove("pin-top-full-width"); // 説明ポイント(1)
+    target.appendChild(clone);
+  }
+}
+
+// 各カラムの先頭部分に空白領域を用意する
+function getTargetArea(column){
+  const content = column.querySelector(".column-content");
+  let target = content.querySelector(".target");
+  if(!target){ // まだ作ってなかったら新しい要素を作る
+    target = document.createElement("div");
+    target.classList.add("target"); // 説明ポイント(2)
+    content.insertBefore(target, content.childNodes[0]); // 説明ポイント(3)
+  }
+  target.innerHTML = "";
+  return target;
+}
+```
+
+-   説明ポイント(1) クローン元のアイコンに邪魔な CSS 指定 (`.pin-top-full-width{ position: absolute }`) があるので削除しています。
+-   説明ポイント(2) 自分のプログラムで作った要素を後から querySelector で見つけやすいように class を追加しています。
+-   説明ポイント(3) 要素を末尾以外に挿入するには `親要素.insertBefore(挿入する要素, 参照する要素)` を使います。
+
+## 5\. Objectを使ってランキングを作る 応用編
+
+最後は応用編として、表示されているツイートを誰のツイートかで集計して、ツイート数が多い順に表示するランキング機能を作ります。
+
+[Object はキーと値のペアを保持するもの](Programming-05.html#object) ですので、「誰が」をキーに「ツイート数」を値として保持すれば集計表として使うことができます。 少しプログラムは長くなりますが、ほとんど今まで出てきたことしか使っていませんので、じっくりと読み解いてみてください。
+
+```javascript
+function rankingButtonClicked(){
+  const columns = document.querySelectorAll("section.column");
+  for(let i = 0; i < columns.length; i++){
+    showRanking(columns[i]);
+  }
+}
+
+function showRanking(column){
+  const tweets = column.querySelectorAll("article.stream-item");
+  const count = {}; // 集計用オブジェクト
+  for(let i = 0; i < tweets.length; i++){
+    const name = tweets[i].querySelector(".username").textContent;
+    if(!count[name]) count[name] = 0;
+    count[name]++;
+  }
+
+  // 大きい順に並び替え (新出)
+  const sortedNames = Object.keys(count).sort(function(a, b){ return count[b] - count[a] }).slice(0, 10);
+
+  const target = getTargetArea(column);
+  const ol = document.createElement("ol");
+  target.appendChild(ol);
+
+  for(let i = 0; i < sortedNames.length; i++){
+    let name = sortedNames[i];
+    let li = document.createElement("li");
+    li.textContent = name + ": " + count[name];
+    ol.appendChild(li);
+  }
+}
+```
+
+### やってみよう
+
+オリジナルの機能追加を考えて作ってみましょう。どしどし質問してください！
