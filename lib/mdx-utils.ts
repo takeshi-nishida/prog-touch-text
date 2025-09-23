@@ -5,6 +5,8 @@ import rehypeSlug from 'rehype-slug';
 import rehypeExtractToc from '@stefanprobst/rehype-extract-toc';
 import rehypeExtractTocExport from '@stefanprobst/rehype-extract-toc/mdx';
 
+import type { ContentMeta } from '@/types/content';
+
 function getAllMdxFiles(dir: string): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   return entries.flatMap(entry => {
@@ -35,7 +37,7 @@ export async function getMdxBySlug(slugPath: string) {
   const filePath = path.join(process.cwd(), "data", "text", `${slugPath}.mdx`);
   const source = fs.readFileSync(filePath, "utf-8");
 
-  const { code, frontmatter } = await bundleMDX({
+  const { code, frontmatter } = await bundleMDX<ContentMeta>({
     source,
     mdxOptions(options) {
       options.rehypePlugins = [

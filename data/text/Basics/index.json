@@ -1,0 +1,15 @@
+{
+    "slug": "Basics",
+    "title": "p5.js 編",
+    "description": "p5.js で楽しくプログラミングしつつ、プログラミングの基礎概念と JavaScript の文法を学びます。",
+    "order": 1,
+    "pages": [
+        "01-introduction",
+        "programming-tools",
+        "02-pattern-drawing",
+        "03-interaction",
+        "04-collections",
+        "05-structuring",
+        "recipes"
+    ]
+}
