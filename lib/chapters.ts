@@ -20,3 +20,8 @@ export function getAllChapters(): Chapter[] {
 
     return chapters;
 }
+
+export function getChapterBySlug(slug: string): Chapter | undefined {
+    const chapters = getAllChapters();
+    return chapters.find(chapter => chapter.slug === slug);
+}

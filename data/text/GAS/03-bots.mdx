@@ -6,7 +6,7 @@ slug: "03-bots"
 keywords: []
 prev: "02-webapp"
 next: null
-parent: null
+parent: "GAS"
 ---
 
 # Google Apps Script で LINE Bot を作成する
@@ -172,7 +172,7 @@ HTTPリクエストの種類と宛先 URL は？
 
 Content-Type (必須ヘッダー) は「application/json」 → json 形式のテキストで送れってことね。
 
-Authorization (必須ヘッダー) は「Bearer {channel access token}」 → チャンネルアクセストークンをヘッダーに入れて認証するパターンか。さっきチャンネルを作ったからトークンもそこかな？
+Authorization (必須ヘッダー) は「`Bearer {channel access token}`」 → チャンネルアクセストークンをヘッダーに入れて認証するパターンか。さっきチャンネルを作ったからトークンもそこかな？
 
 ボディには replyToken と messages が必須なのか。メッセージはどんな形式にすればいいのかな？お！「リクエストの例」がわかりやすいな。
 

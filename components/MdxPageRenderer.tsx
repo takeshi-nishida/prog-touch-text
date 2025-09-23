@@ -5,11 +5,13 @@ import { getMDXComponent, getMDXExport } from 'mdx-bundler/client';
 
 import type { ComponentProps } from 'react';
 import type { Toc, TocEntry } from '@stefanprobst/rehype-extract-toc';
+import type { LinkData } from '@/types/link';
 
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { InlineCode } from '@/components/InlineCode';
-import { CodeBlock } from './CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
+import Link from 'next/link';
 
-// サイド目次用コンポーネント
 function TocSidebar({ toc }: { toc: Toc }) {
   return (
     <nav className="text-sm p-4 bg-blue-50 rounded-lg border border-blue-100 sticky top-8">
@@ -71,7 +73,8 @@ const components = {
   },
 };
 
-export default function MdxPageRenderer({ code }: { code: string }) {
+export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
+   { code: string; breadcrumbs: LinkData[]; navigations: { prev?: LinkData; next?: LinkData } }) {
   const Component = useMemo(() => getMDXComponent(code), [code]);
   const { toc } = useMemo(() => getMDXExport(code), [code]);
 
@@ -81,7 +84,16 @@ export default function MdxPageRenderer({ code }: { code: string }) {
         <TocSidebar toc={toc} />
       </aside>
       <article className="max-w-4xl mx-auto mt-8 flex-1">
+        <Breadcrumbs items={breadcrumbs} />
         <Component components={components} />
+        <div className="flex justify-between my-8">
+          {navigations.prev ? (
+            <Link href={navigations.prev.href} className="text-blue-600 hover:underline">← Prev: {navigations.prev.title}</Link>
+          ) : <div />}
+          {navigations.next ? (
+            <Link href={navigations.next.href} className="text-blue-600 hover:underline">Next: {navigations.next.title} →</Link>
+          ) : <div />}
+        </div>
       </article>
     </div>
   );

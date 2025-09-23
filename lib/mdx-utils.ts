@@ -27,7 +27,7 @@ export function getAllSlugs() {
   });
 }
 
-const mdxCache = new Map<string, { code: string; frontmatter: any }>();
+const mdxCache = new Map<string, { code: string; frontmatter: ContentMeta }>();
 
 export async function getMdxBySlug(slugPath: string) {
   if (mdxCache.has(slugPath)) {

@@ -6,7 +6,7 @@ slug: "02-webapp"
 keywords: []
 prev: "01-getting-started"
 next: "03-bots"
-parent: null
+parent: "GAS"
 ---
 
 # Google Apps Script で Web アプリを作る
@@ -65,7 +65,7 @@ function doGet() {
 
 ここでは list.html という名前で次のようなテンプレートのファイルを作成しました。テンプレートはだいたい HTML です。
 
-```markup
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -225,7 +225,46 @@ function checkAnswers(answers){
 
 次にテンプレート (show.html) です。
 
-<!DOCTYPE html> <html> <head> <base target="\_top"> </head> <body> <h1>クイズ</h1> <form id="answers"> <? for(let i = 1; i < qs.length; i++){ ?> <? let q = qs\[i\]; ?> <div> <h2><?= q\[0\] ?></h2> <? for(let j = 1; j <= 4; j++){ ?> <input type="radio" name="Q<?= i ?>" value="<?= j ?>" onclick="ask(event)"><?= q\[j\] ?><br/> <? } ?> </div> <? } ?> </form> <button style="margin-top: 32px" onclick="sendAnswers()">回答を送信</button> <span id="status"></span> </body> <script><!-- ブラウザで動くプログラム --> function ask(e){ if(!confirm("ファイナルアンサー？")){ e.preventDefault(); } } function sendAnswers(){ let answers = document.getElementById("answers"); google.script.run.withSuccessHandler(success).checkAnswers(answers); } function success(n){ document.getElementById("status").textContent = n + "問正解でした！"; } &lt;/script> </html>
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <h1>クイズ</h1>
+    <form id="answers">
+    <? for(let i = 1; i < qs.length; i++){ ?>
+    <? let q = qs[i]; ?>
+    <div>
+      <h2><?= q[0] ?></h2>
+      <? for(let j = 1; j <= 4; j++){ ?>
+      <input type="radio" name="Q<?= i ?>" value="<?= j ?>" onclick="ask(event)"><?= q[j] ?><br/>
+      <? } ?>
+    </div>
+    <? } ?>
+    </form>
+
+    <button style="margin-top: 32px" onclick="sendAnswers()">回答を送信</button>
+    <span id="status"></span>
+  </body>
+
+  <script><!-- ブラウザで動くプログラム -->
+  function ask(e){
+    if(!confirm("ファイナルアンサー？")){ e.preventDefault(); }
+  }
+
+  function sendAnswers(){
+    let answers = document.getElementById("answers");
+    google.script.run.withSuccessHandler(success).checkAnswers(answers);
+  }
+
+  function success(n){
+    document.getElementById("status").textContent = n + "問正解でした！";
+  }
+  </script>
+</html>
+```
 
 show.html には二種類のプログラムが含まれています。
 
