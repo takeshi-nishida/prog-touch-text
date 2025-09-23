@@ -1,6 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import { bundleMDX } from 'mdx-bundler';
+import rehypeSlug from 'rehype-slug';
+import rehypeExtractToc from '@stefanprobst/rehype-extract-toc';
+import rehypeExtractTocExport from '@stefanprobst/rehype-extract-toc/mdx';
 
 function getAllMdxFiles(dir: string): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -22,11 +25,30 @@ export function getAllSlugs() {
   });
 }
 
+const mdxCache = new Map<string, { code: string; frontmatter: any }>();
+
 export async function getMdxBySlug(slugPath: string) {
+  if (mdxCache.has(slugPath)) {
+    return mdxCache.get(slugPath)!;
+  }
+
   const filePath = path.join(process.cwd(), "data", "text", `${slugPath}.mdx`);
   const source = fs.readFileSync(filePath, "utf-8");
 
-  const { code } = await bundleMDX({ source });
+  const { code, frontmatter } = await bundleMDX({
+    source,
+    mdxOptions(options) {
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        rehypeSlug,
+        rehypeExtractToc,
+        [rehypeExtractTocExport, { name: 'toc' }]
+      ];
+      return options;
+    }
+  });
 
-  return { code };
+  const result = { code, frontmatter };
+  mdxCache.set(slugPath, result);
+  return result;
 }

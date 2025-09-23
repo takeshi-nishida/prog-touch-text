@@ -3,9 +3,10 @@ import MdxPageRenderer from '@/components/MdxPageRenderer';
 
 export const generateMetadata = async ({ params }: { params: { slug: string[] } }) => {
     const { slug } = await params;
+    const { frontmatter } = await getMdxBySlug(slug.join('/'));
     return {
-        title: `${slug.join('/')}`,
-        description: 'A page about ' + slug.join('/'),
+        title: frontmatter.title,
+        description: frontmatter.description,
     };
 }
 
@@ -15,7 +16,7 @@ export default async function Page({
     params: Promise<{ slug: string[] }>
 }) {
     const { slug } = await params;
-    const { code } = await getMdxBySlug(slug.join('/'));
+    const { code, frontmatter } = await getMdxBySlug(slug.join('/'));
 
     return <MdxPageRenderer code={code} />;
 }

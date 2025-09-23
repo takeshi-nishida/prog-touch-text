@@ -1,12 +1,49 @@
 "use client";
 
 import { useMemo } from 'react';
-import { getMDXComponent } from 'mdx-bundler/client';
+import { getMDXComponent, getMDXExport } from 'mdx-bundler/client';
+
 import type { ComponentProps } from 'react';
-import { isValidElement } from 'react';
+import type { Toc, TocEntry } from '@stefanprobst/rehype-extract-toc';
 
 import { InlineCode } from '@/components/InlineCode';
 import { CodeBlock } from './CodeBlock';
+
+// サイド目次用コンポーネント
+function TocSidebar({ toc }: { toc: Toc }) {
+  return (
+    <nav className="text-sm p-4 bg-blue-50 rounded-lg border border-blue-100 sticky top-8">
+      <div className="font-bold mb-2">目次</div>
+      <ul>
+        {toc.map(item => (
+          <TocListItem key={item.id} item={item} />
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+function TocListItem({ item }: { item: TocEntry }) {
+  return (
+    <li className='my-2'>
+      <a
+        href={`#${item.id}`}
+        className="hover:underline text-blue-700 cursor-pointer transition-colors duration-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        tabIndex={0}
+        aria-label={`Jump to ${item.value}`}
+      >
+        {item.value}
+      </a>
+      {item.children && (
+        <ul className="ml-4">
+          {item.children.map(child => (
+            <TocListItem key={child.id} item={child} />
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+}
 
 const components = {
   h1: (props: ComponentProps<'h1'>) => <h1 className="text-3xl font-bold my-4" {...props} />,
@@ -36,6 +73,16 @@ const components = {
 
 export default function MdxPageRenderer({ code }: { code: string }) {
   const Component = useMemo(() => getMDXComponent(code), [code]);
+  const { toc } = useMemo(() => getMDXExport(code), [code]);
 
-  return <article className="max-w-4xl mx-auto mt-8"><Component components={components} /></article>;
+  return (
+    <div className="flex gap-8">
+      <aside className="w-64 shrink-0 hidden lg:block">
+        <TocSidebar toc={toc} />
+      </aside>
+      <article className="max-w-4xl mx-auto mt-8 flex-1">
+        <Component components={components} />
+      </article>
+    </div>
+  );
 }
