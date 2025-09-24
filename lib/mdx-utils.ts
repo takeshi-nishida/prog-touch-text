@@ -30,11 +30,19 @@ export function getAllSlugs() {
 const mdxCache = new Map<string, { code: string; frontmatter: ContentMeta }>();
 
 export async function getMdxBySlug(slugPath: string) {
-  if (mdxCache.has(slugPath)) {
-    return mdxCache.get(slugPath)!;
+  const filePath = path.join(process.cwd(), "data", "text", `${slugPath}.mdx`);
+  const stat = fs.statSync(filePath);
+  const mtime = stat.mtimeMs;
+
+  const cacheEntry = mdxCache.get(slugPath) as
+    | { code: string; frontmatter: ContentMeta; mtime: number }
+    | undefined;
+
+  if (cacheEntry && cacheEntry.mtime === mtime) {
+    const { mtime: _, ...rest } = cacheEntry;
+    return rest;
   }
 
-  const filePath = path.join(process.cwd(), "data", "text", `${slugPath}.mdx`);
   const source = fs.readFileSync(filePath, "utf-8");
 
   const { code, frontmatter } = await bundleMDX<ContentMeta>({
@@ -50,7 +58,7 @@ export async function getMdxBySlug(slugPath: string) {
     }
   });
 
-  const result = { code, frontmatter };
+  const result = { code, frontmatter, mtime };
   mdxCache.set(slugPath, result);
-  return result;
+  return { code, frontmatter };
 }

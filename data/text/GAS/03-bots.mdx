@@ -15,7 +15,7 @@ Google Apps Script を使うと無料で簡単に LINE Bot (LINE で会話でき
 
 LINE Bot のプログラムを Web アプリとして公開しておくと、その URL に LINE からリクエストが来るという形でメッセージが届きます。 このように他システムからの通知を Web の仕組みで受け取ることを webhook と呼びます。 こちらのプログラムからメッセージを発信するときは逆に LINE 側が Web アプリとして待ち構えているので UrlFetchApp でその URL にリクエストを送ります。 [前回](GAS-02.html)、[前々回](GAS-01.html) の内容も思い出しつつ進めていきましょう。
 
-![](images/gas_line_overview.png)
+![GAS で作る LINE Bot の概要](https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_line_overview.png)
 
 「私は LINE なんか使っていません！」という人は同じような方法で Discord や Slack などのボットを作ることができますので挑戦してみてください。
 
@@ -54,7 +54,7 @@ function doPost(e){
 
 Web の通信方法 (HTTP) では主なリクエストの種類 (method) が GET と POST の 2 種類あってそれに対応して関数も 2 種類あります。 極めて単純化して説明すると GET は「ください」、POST は「送ります」で webhook では普通 POST を使います。 LINE Bot にメッセージを送ると、LINE のサーバーから GAS の Web アプリに対して POST リクエストが送られてきます。 最初に載せた図を再掲します。
 
-![](images/gas_line_overview.png)
+![GAS で作る LINE Bot の概要](https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_line_overview.png)
 
 POST リクエストが届くと、リクエスト情報を引数 `e` として `doPost(e)` が実行されます。 POST で送られたデータには `e.postData` というオブジェクトとしてアクセスできます。 送られてきたデータは `e.postData.contents` にテキストとして入っています。 先ほどのプログラムはそのデータをスプレッドシートに記録しますので、具体的にどんなテキストが送られてきているかは、この後実際に確認します。 まずは Bot のテストまで進めてください。
 
@@ -66,7 +66,7 @@ POST リクエストが届くと、リクエスト情報を引数 `e` として 
 
 得られた公開用の URL を「Webhook設定」の Webhook URL に設定してください。下図のようになります。 Webhook URL を設定するとその下に「Webhookの利用」というスイッチが表示されますのでオンにしてください（オンだったらそのままでOKです）。 「検証」ボタンを押して「成功」と表示されればOKです。
 
-![](images/gas_line_webhook.png)
+![Webhook 設定](https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_line_webhook.png)
 
 「検証が成功しない！」と困っている人は、貼り付けている URL が間違っていないか、テスト用の URL を使っていないか確認してください。 URL をコピーするときに端の文字が抜けてしまったりすることがありますので、コピーするときには URL の下にあるコピーボタンを使うようにしましょう。
 

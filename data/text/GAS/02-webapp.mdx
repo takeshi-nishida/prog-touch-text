@@ -17,7 +17,7 @@ parent: "GAS"
 
 Web アプリは、コンテンツが固定されている単純な Web ページに対して、 アプリのようにコンテンツが変化したり、投稿・編集などができたりするもののことを言います。 Web アプリでは次図のように、Web ページを見たいというリクエストが送られてきたときに Web ページのデータを送り返します。 これを Google Apps Script で行うことができる仕組みが用意されています。
 
-![](images/gas_webapp_overview.png)
+![GAS で作る Web アプリの概要](https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_webapp_overview.png)
 
 ### Google Apps Script による Web アプリの流れ
 
@@ -61,7 +61,7 @@ function doGet() {
 
 次に読み込んだデータを使って HTML 文書を作って return します。 `return HtmlService.createHtmlOutput('<b>Hello, world!</b>');` のように書くこともできますが、 この方法で長い HTML 文書を作成するのは大変なので、テンプレートという仕組みを使って作成することが多いです。 テンプレートというのは、あらかじめ HTML 文書のひな形を別のファイルとして用意しておいて、変化しうるデータ部分を後から穴埋めできるようにしておくことです。 テンプレートはスクリプトエディタの「ファイル」の横にある＋ボタンから作成できます。
 
-![](images/gas_webapp_newfile.png)
+![新しいHTMLファイルの作成](https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_webapp_newfile.png)
 
 ここでは list.html という名前で次のようなテンプレートのファイルを作成しました。テンプレートはだいたい HTML です。
 
@@ -107,7 +107,7 @@ function doGet() {
 
 右上にある青い「デプロイ」ボタンから「新しいデプロイ」の画面を開きます。 種類の選択で「ウェブアプリ」を選択すると下の図のような画面になります。
 
-![](images/gas_webapp_deploy.png)
+![「新しいデプロイ」画面](https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_webapp_deploy.png)
 
 -   「説明文」は空のままでもOKです。
 -   「次のユーザーとして実行」は「自分」に設定します。スプレッドシートにアクセスするのに作成者の権限が必要ですので、作成者の権限でプログラムも動く必要があるからです。
@@ -115,13 +115,13 @@ function doGet() {
 
 いつも通り動作の承認を求められた後に Web アプリとして公開され、アクセスするための URL が用意されます（下図）。クリックしてアクセスしてみてください。
 
-![](images/gas_webapp_url.png)
+![Web アプリのURL](https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_webapp_url.png)
 
 ## Web アプリを更新する
 
 プログラムを書き換えるだけでは公開されたアプリは変更されないので注意してください。 プログラムを書き換えるごとにこまめに動作確認をするときにはテスト用のURLを使うのが便利です。 公開アプリを更新するには「デプロイを管理」から「編集（鉛筆アイコン）」する必要があります。 編集画面ではバージョンのプルダウンリストで「新バージョン」を選択して右下の「デプロイ」ボタンを押すと更新が完了します。
 
-![](images/gas_webapp_update.png)
+![デプロイを管理](https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_webapp_update.png)
 
 デプロイ作業について以下にまとめます。
 

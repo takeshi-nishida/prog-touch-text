@@ -11,25 +11,25 @@ parent: "01-introduction"
 
 # 演習問題「計算で図形を描く」
 
-[計算で図形を描く](Programming-02.html) の範囲の演習問題です。
+[計算で図形を描く](02-pattern-drawing) の範囲の演習問題です。
 
 授業でひな型プログラムを配布された方は、課題名の横の記号（こういうやつ section1-q1）が、ひな型プログラムの収録されたフォルダ名に対応しています。 そのフォルダにある sketch.js を編集することを想定しています。 プログラム内にもコメントでヒントが書かれている場合や、プログラムの一部が既に書かれている場合があります。
 
 ## 問題１：小手調べ section2-q1
 
-![](./images/circles.png)
+![](https://www2.kobe-u.ac.jp/~tnishida/programming/images/circles.png)
 
 まずは小手調べです。内側に青い円が5つ、外側に赤い円が5つです。 円を描くには `ellipse(中心のx座標, 中心のy座標, 幅, 高さ);` を使います。 色を赤にするには `stroke(255, 0, 0);`、青くするには `stroke(0, 0, 255);` とします。 内側の円から先に描くと後から描いた円に塗りつぶされてしまいますので、 塗りつぶしをしないようにする `noFill();` を事前にしておくか、外側の円から順に描くようにするかする必要があります。
 
 ## 問題２：チェッカー section2-q2
 
-![](./images/checker.png)
+![](https://www2.kobe-u.ac.jp/~tnishida/programming/images/checker.png)
 
 二重ループと条件分岐を使う問題です。まずは格子模様だけを描いてみましょう。i行j列の色は「i+jが偶数か？」で分岐するとうまく塗分けられます。
 
 ## 問題３：ダーツ section2-q3
 
-![](./images/darts.png)
+![](https://www2.kobe-u.ac.jp/~tnishida/programming/images/darts.png)
 
 様々な描き方が考えられる問題です。私は関数 `arc` を使いました。難しいですが、実はひな型プログラムが完成目前なので、読解問題だと思って取り組んでみてください。
 

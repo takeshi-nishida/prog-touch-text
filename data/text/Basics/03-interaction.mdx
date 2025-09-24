@@ -128,7 +128,7 @@ function draw(){
 }
 ```
 
-![](./images/animation_edge1.gif)
+![反対側から出てくるアニメーション](https://www2.kobe-u.ac.jp/~tnishida/programming/images/animation_edge1.gif)
 
 以下のように、同じ画面端の処理を条件分岐の代わりに割った余りの計算で書くこともできます。どうしてこれでいけるのか考えてみてください。
 
@@ -170,7 +170,7 @@ function draw(){
 }
 ```
 
-![](./images/animation_edge2.gif)
+![端で跳ね返るアニメーション](https://www2.kobe-u.ac.jp/~tnishida/programming/images/animation_edge2.gif)
 
 速度は単位時間中に進む距離のことです。p5.js では draw 一回で進む距離として表現できます。 跳ね返るというのはつまり進む向きが逆になるということですから、速度に -1 をかけることで表現できます。 x, y を画面内になるようにして完成です。 ここでは `constrain(n, low, high)` という便利な関数を使っています。 low 以下だったら low を high 以上だったら high をそれ以外は n を返す関数です。
 
@@ -198,7 +198,7 @@ function draw(){
 }
 ```
 
-![](./images/animation_edge3.gif)
+![床に弾むアニメーション](https://www2.kobe-u.ac.jp/~tnishida/programming/images/animation_edge3.gif)
 
 重力の値を変えるとアニメーションの様子がどのように変わるか観察してみましょう。
 
@@ -417,4 +417,4 @@ function mouseReleased(){
 
 少し前のマウスの座標を保持する pmouseX, pmouseY を利用すると、マウスの動いた方向を知ることができます。 上の例ではその方向に円を動かすことによってマウスで円を投げたように見せています。
 
-他にも [p5.js レシピ集](Programming-Recipes.html) にアニメーションの例をいくつか載せていますので見てみてください。
+他にも [p5.js レシピ集](recipes) にアニメーションの例をいくつか載せていますので見てみてください。
