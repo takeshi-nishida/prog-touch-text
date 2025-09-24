@@ -15,6 +15,7 @@ import Link from 'next/link';
 function TocSidebar({ toc }: { toc: Toc }) {
   return (
     <nav className="text-sm p-4 bg-blue-50 rounded-lg border border-blue-100 sticky top-8">
+      <Link href="/" className="block mb-8 text-blue-700 hover:underline">Home</Link>
       <div className="font-bold mb-2">目次</div>
       <ul>
         {toc.map(item => (
@@ -51,9 +52,12 @@ const components = {
   h1: (props: ComponentProps<'h1'>) => <h1 className="text-3xl font-bold my-4" {...props} />,
   h2: (props: ComponentProps<'h2'>) => <h2 className="text-2xl font-bold my-3" {...props} />,
   h3: (props: ComponentProps<'h3'>) => <h3 className="text-xl font-bold my-2" {...props} />,
-  p: (props: ComponentProps<'p'>) => <p className="my-2" {...props} />,
+  h4: (props: ComponentProps<'h4'>) => <h4 className="text-lg font-bold my-2" {...props} />,
+  p: (props: ComponentProps<'p'>) => <p className="my-4" {...props} />,
   a: (props: ComponentProps<'a'>) => <a className="text-blue-600 underline" {...props} />,
-  ul: (props: ComponentProps<'ul'>) => <ul className="list-disc list-inside my-2" {...props} />,
+  ul: (props: ComponentProps<'ul'>) => <ul className="list-disc list-inside ml-4 my-2" {...props} />,
+  ol: (props: ComponentProps<'ol'>) => <ol className="list-decimal list-inside ml-4 my-2" {...props} />,
+  li: (props: ComponentProps<'li'>) => <li className="my-1" {...props} />,
   code: (props: ComponentProps<'code'>) => {
     const className = props.className || '';
     const isBlock = className.startsWith('language-');
@@ -71,6 +75,7 @@ const components = {
 
     return <CodeBlock code={code} language={language} {...props} />;
   },
+  img: (props: ComponentProps<'img'>) => <img className="my-8 max-w-full max-h-[480px] mx-auto rounded-lg shadow-lg shadow-gray-500" {...props} />
 };
 
 export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
@@ -83,7 +88,7 @@ export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
       <aside className="w-64 shrink-0 hidden lg:block">
         <TocSidebar toc={toc} />
       </aside>
-      <article className="max-w-4xl mx-auto mt-8 flex-1">
+      <article className="max-w-4xl mx-auto mt-8 flex-1 leading-relaxed text-gray-800">
         <Breadcrumbs items={breadcrumbs} />
         <Component components={components} />
         <div className="flex justify-between my-8">
