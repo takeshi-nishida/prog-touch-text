@@ -16,7 +16,7 @@ export function getAllChapters(): Chapter[] {
     });
 
     // Sort chapters by their 'order' property
-    chapters.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    chapters.sort((a, b) => a.order - b.order);
 
     return chapters;
 }

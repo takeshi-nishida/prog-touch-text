@@ -66,16 +66,20 @@ const components = {
   },
   pre: (props: ComponentProps<'pre'>) => {
     const codeElement = props.children; // supposed to be a <code> element
-    // TODO: check if codeElement is a valid React element and of type 'code'
 
-    // extract the code string and language from the <code> element
-    const code = (codeElement as React.ReactElement<{ children: string }>).props?.children || '';
+    if (!isCodeElement(codeElement)) return <pre {...props} />;
+
+    const code = codeElement.props.children;
     const language = props.className?.replace('language-', '').trim() || 'javascript';
 
     return <CodeBlock code={code} language={language} {...props} />;
   },
   img: (props: ComponentProps<'img'>) => <img className="my-8 max-w-full max-h-[480px] mx-auto rounded-lg shadow-lg shadow-gray-500" {...props} />
 };
+
+function isCodeElement(node: React.ReactNode): node is React.ReactElement<{ children: string }> {
+  return node !== null && typeof node === 'object' && 'type' in node && node.type === 'code';
+}
 
 export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
    { code: string; breadcrumbs: LinkData[]; navigations: { prev?: LinkData; next?: LinkData } }) {
