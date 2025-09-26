@@ -27,16 +27,14 @@ export function getAllSlugs() {
   });
 }
 
-const mdxCache = new Map<string, { code: string; frontmatter: ContentMeta }>();
+const mdxCache = new Map<string, { code: string; frontmatter: ContentMeta, mtime: number }>();
 
 export async function getMdxBySlug(slugPath: string) {
   const filePath = path.join(process.cwd(), "data", "text", `${slugPath}.mdx`);
   const stat = fs.statSync(filePath);
   const mtime = stat.mtimeMs;
 
-  const cacheEntry = mdxCache.get(slugPath) as
-    | { code: string; frontmatter: ContentMeta; mtime: number }
-    | undefined;
+  const cacheEntry = mdxCache.get(slugPath);
 
   if (cacheEntry && cacheEntry.mtime === mtime) {
     const { mtime: _, ...rest } = cacheEntry;
