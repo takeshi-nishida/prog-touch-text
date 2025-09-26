@@ -8,7 +8,7 @@ export function InlineCode(props: ComponentProps<'code'>) {
         <Highlight
             theme={themes.github}
             code={codeString}
-            language="jsx"
+            language="jsx" // all inline code in this project will be Javascript or HTML so we use jsx
         >
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
                 <code className={className + " border border-gray-400 rounded px-2 py-1"} style={style}>

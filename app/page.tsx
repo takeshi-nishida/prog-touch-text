@@ -7,6 +7,11 @@ import { getMdxBySlug } from "@/lib/mdx-utils";
 
 async function ChapterTable({ chapter }: { chapter: Chapter }) {
   const slugPaths = chapter.pages.map(slug => [chapter.slug, slug].join('/'));
+  const tableRows = await Promise.all(slugPaths.map(async path => {
+    const { frontmatter } = await getMdxBySlug(path);
+    const { title, slug, keywords } = frontmatter;
+    return { title, slug, keywords, path };
+  }));
 
   return (
     <table className="mt-2 w-full table-auto">
@@ -17,22 +22,19 @@ async function ChapterTable({ chapter }: { chapter: Chapter }) {
         </tr>
       </thead>
       <tbody>
-        {slugPaths.map(async path => {
-          const { frontmatter } = await getMdxBySlug(path);
-          const { title, slug, keywords } = frontmatter;
-          return <tr key={slug} className="border-y border-gray-400 hover:bg-gray-100">
+        {tableRows.map(({ title, slug, keywords, path }) => (
+          <tr key={slug} className="border-y border-gray-400 hover:bg-gray-100">
             <td className="px-2 py-1"><Link href={`/${path}`} className="text-blue-700 hover:underline">{title}</Link></td>
             <td className="px-2 py-1">{keywords.join(', ')}</td>
           </tr>
-        })}
+        ))}
       </tbody>
     </table>
   );
 }
 
 export default async function Home() {
-  // sorted by order
-  const chapters = await getAllChapters();
+  const chapters = await getAllChapters(); // sorted by order
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center pt-12 px-16">
