@@ -69,8 +69,7 @@ const components = {
     // TODO: check if codeElement is a valid React element and of type 'code'
 
     // extract the code string and language from the <code> element
-    const codeString = (codeElement as any).props?.children || '';
-    const code = typeof codeString === 'string' ? codeString : String(codeString);    
+    const code = (codeElement as React.ReactElement<{ children: string }>).props?.children || '';
     const language = props.className?.replace('language-', '').trim() || 'javascript';
 
     return <CodeBlock code={code} language={language} {...props} />;

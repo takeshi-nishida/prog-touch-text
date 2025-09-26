@@ -1,4 +1,4 @@
-export type ContentMeta {
+export type ContentMeta = {
   title: string;
   description: string;
   updated: string;
@@ -7,4 +7,4 @@ export type ContentMeta {
   prev: string | null;
   next: string | null;
   parent: string | null;
-}
+};
