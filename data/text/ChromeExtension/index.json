@@ -1,0 +1,11 @@
+{
+    "slug": "ChromeExtension",
+    "title": "Chrome 拡張機能編",
+    "description": "ブラウザの機能を拡張するプログラムの開発を通じてウェブアプリの仕組みを学ぶとともに、日常の不便を自力で解決する精神を養います。",
+    "order": 2,
+    "pages": [
+        "01-warmup",
+        "02-getting-started",
+        "03-advanced"
+    ]
+}
