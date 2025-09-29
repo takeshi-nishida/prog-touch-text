@@ -1,0 +1,47 @@
+---
+title: "実験場"
+description: ""
+updated: ""
+slug: "playground"
+keywords: []
+prev: null
+next: null
+parent: null
+---
+
+<ProgTouchEmbed>
+
+<Step thoughts="いつものテンプレから始めよう">
+```javascript
+function setup() {
+  createCanvas(200, 200);
+  // @B
+}
+function draw() {
+  background(220);
+  // @A
+}
+```
+</Step>
+
+<Step at="A" thoughts="日本国旗の背景を描く 縦横比2:3だ">
+```javascript
+  fill(255);
+  rect(10, 40, 180, 120);
+```
+</Step>
+
+<Step at="A" thoughts="赤い円を描いて完成？">
+```javascript
+  fill(255, 0, 0);
+  ellipse(100, 100, 50, 50);
+```
+</Step>
+
+<Step at="B" thoughts="枠線を描かないようにしよう">
+```javascript
+  noStroke();
+```
+</Step>
+
+</ProgTouchEmbed>
