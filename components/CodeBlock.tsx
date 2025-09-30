@@ -9,14 +9,16 @@ type CodeBlockProps = {
     language?: string;
     highlightLines?: number[]; // Array of line numbers to highlight (1-indexed)
     cursorLine?: number;       // Single line number to show as cursor position (1-indexed)
+    showCopyButton?: boolean;
 } & ComponentProps<'pre'>;
 
-export function CodeBlock({ 
-    code, 
-    language = 'javascript', 
+export function CodeBlock({
+    code,
+    language = 'javascript',
     highlightLines = [],
     cursorLine,
-    ...props 
+    showCopyButton = true,
+    ...props
 }: CodeBlockProps) {
     const [copied, setCopied] = useState(false);
 
@@ -32,10 +34,11 @@ export function CodeBlock({
 
     return (
         <div className="relative">
-            <button
+            {showCopyButton && (<button
                 className="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 text-sm px-2 py-1 rounded z-10"
                 onClick={handleCopy}
-            >{ copied ? 'Copied!' : 'Copy' }</button>
+            >{copied ? 'Copied!' : 'Copy'}</button>
+            )}
             <Highlight
                 theme={themes.github}
                 code={code}
@@ -51,12 +54,12 @@ export function CodeBlock({
                             const lineNumber = i + 1; // Convert to 1-indexed
                             const isHighlighted = highlightLines.includes(lineNumber);
                             const isCursor = cursorLine === lineNumber;
-                            
+
                             const lineProps = getLineProps({ line });
-                            
+
                             return (
-                                <div 
-                                    key={i} 
+                                <div
+                                    key={i}
                                     {...lineProps}
                                     className={`
                                         ${lineProps.className || ''}

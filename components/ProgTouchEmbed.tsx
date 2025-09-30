@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, createContext, useContext } from 'react';
-import { isStepElement } from './Step';
+import { isStepElement, resolveSteps } from './Step';
 import { extractCodeFromPre, isPreElement, findPreElement } from '@/lib/react-utils';
 import { CodeWithPreview } from './CodeWithPreview';
+import { CodeBlock } from './CodeBlock';
 
 const ProgTouchEmbedContext = createContext(false);
 export const useIsInProgTouchEmbed = () => useContext(ProgTouchEmbedContext);
@@ -16,12 +17,12 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
 
     // Build code up to the current step
     const buildCode = () => {
+        const { resolvedSteps, undoneStep, isUndoStep, shouldShowComparison } = resolveSteps(stepElements.slice(0, currentStep + 1));
+
         let resultLines: string[] = [];
         let highlightRange = { start: 0, end: 0 };
 
-        stepElements.forEach((step, index) => {
-            if (index > currentStep) return;
-
+        resolvedSteps.forEach((step, index) => {
             const preElement = findPreElement(step.props.children);
             if (!preElement) return;
 
@@ -38,7 +39,7 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
                         const codeLines = code.split('\n');
                         newLines.push(...codeLines);
 
-                        if (index === currentStep && currentStep > 0) {
+                        if (index === resolvedSteps.length - 1 && resolvedSteps.length > 1 && !isUndoStep) { // last step
                             highlightRange = {
                                 start: insertLineStart + 1, // 1-indexed
                                 end: insertLineStart + codeLines.length
@@ -71,7 +72,7 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
             end: highlightRange.end - removedLines
         };
 
-        return { code: displayLines.join('\n'), highlightRange };
+        return { code: displayLines.join('\n'), highlightRange, undoneStep, isUndoStep, shouldShowComparison };
     };
 
     const nextStep = () => {
@@ -82,10 +83,17 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
         if (currentStep > 0) setCurrentStep(currentStep - 1);
     };
 
-    const reset = () => { setCurrentStep(0); }; 
+    const reset = () => { setCurrentStep(0); };
 
     const thoughts = stepElements[currentStep]?.props.thoughts;
-    const { code, highlightRange } = buildCode();
+    const { code, highlightRange, undoneStep, isUndoStep, shouldShowComparison } = buildCode();
+
+
+    const undoneCode = React.useMemo(() => {
+        if (!undoneStep) return "";
+        const preElement = findPreElement(undoneStep.props.children);
+        return preElement ? extractCodeFromPre(preElement.props)?.code || "" : "";
+    }, [undoneStep]);
 
     return (
         <ProgTouchEmbedProvider value={true}>
@@ -118,18 +126,28 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
                     </span>
                 </div>
 
-                <div className="progress mt-2 text-center">
-                </div>
-
-                {/* Thoughts display */}
+                {/* Thoughts display with undo styling */}
                 {thoughts && (
-                    <div className="thoughts mb-4 p-3 bg-blue-50 border-l-2 border-blue-400 italic text-blue-800 flex items-center">
+                    <div className={`thoughts my-4 p-3 border-l-2 italic flex items-center ${isUndoStep
+                            ? 'bg-red-50 border-red-400 text-red-800'
+                            : 'bg-blue-50 border-blue-400 text-blue-800'
+                        }`}>
                         <span className="mr-2">{thoughts}</span>
-                        <div className="flex space-x-1">
+                        {!isUndoStep && <div className="flex space-x-1">
                             <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
                             <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                             <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                        </div>}
+                    </div>
+                )}
+
+                {/* Undone code display */}
+                {shouldShowComparison && undoneStep && (
+                    <div className="mb-3 p-2 bg-red-50 border-l-2 border-red-300">
+                        <div className="text-red-600 font-medium mb-2 text-sm">
+                            {isUndoStep ? '削除:' : '前回:'}
                         </div>
+                        <CodeBlock code={undoneCode} language="javascript" showCopyButton={false} className="text-xs" />
                     </div>
                 )}
 
