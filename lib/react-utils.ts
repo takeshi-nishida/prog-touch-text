@@ -1,65 +1,39 @@
 import React from 'react';
 
-function isObject(o: any): o is object {
-  return o !== null && typeof o === 'object';
-}
-
-function isReactElementWithType(node: React.ReactNode): node is React.ReactElement {
-  return (isObject(node) && 'type' in node && 'props' in node);
+function isElementType(node: React.ReactNode, typeName: string): boolean {
+  if(!React.isValidElement(node)) return false;
+  const { type } = node;
+  if(typeof type === 'string') return type === typeName;
+  else if (typeof type === 'function') return type.name === typeName;
+  return false;
 }
 
 function isReactElementWithChildren(node: React.ReactNode): node is React.ReactElement & { props: { children: React.ReactNode } } {
-  return (
-    isReactElementWithType(node) &&
-    isObject(node.props) &&
-    'children' in node.props
-  );
+  if (!React.isValidElement(node)) return false;
+  if (typeof node.props !== 'object' || node.props === null) return false; 
+  return 'children' in node.props;
 }
 
 export function isCodeElement(node: React.ReactNode): node is React.ReactElement<{ children?: React.ReactNode }> {
-  return (
-    isReactElementWithType(node) &&
-    (node.type === 'code' || node.type?.toString().includes('code'))
-  );
-}
-
-export function isCodeElementWithString(node: React.ReactNode): node is React.ReactElement<{ children: string }> {
-  return (
-    isCodeElement(node) &&
-    typeof node.props.children === 'string'
-  );
-}
-
-function isCodeElementWithClassName(node: React.ReactNode): node is React.ReactElement<{ children: React.ReactNode; className: string }> {
-  return (
-    isCodeElement(node) &&
-    'className' in node.props &&
-    typeof node.props.className === 'string'
-  );
+  return isElementType(node, 'code');
 }
 
 export function isPreElement(node: React.ReactNode): node is React.ReactElement<{ children: React.ReactNode }> {
-  return (
-    isReactElementWithType(node) &&
-    (node.type === 'pre' || node.type?.toString().includes('pre'))
-  );
-}
-
-export function extractLanguageFromClassName(className?: string): string {
-  return className?.split(',')[0].replace('language-', '').trim() || 'javascript';
+  return isElementType(node, 'pre');
 }
 
 export function extractCodeFromPre(preElement: React.ComponentProps<'pre'>): { code: string; language: string, preview: boolean } | null {
     const codeElement = preElement.children;
-    if (!isCodeElementWithString(codeElement)) return null;
+    if(!isCodeElement(codeElement) || typeof codeElement.props.children !== 'string') return null;
 
     const code = codeElement.props.children.trimEnd();
 
-    if (!isCodeElementWithClassName(codeElement)) return { code, language: 'plaintext', preview: false };
-    const className = codeElement.props.className;
-    const language = extractLanguageFromClassName(className);
-    const preview = className.includes('preview');
+    const codeProps = codeElement.props;
+    if(!('className' in codeProps) || typeof codeProps.className !== 'string') return { code, language: 'plaintext', preview: false };
 
+    const className = codeProps.className;
+    const language = className?.split(',')[0].replace('language-', '').trim() || 'javascript';
+    const preview = className.includes('preview');
     return { code, language, preview };
 }
 
