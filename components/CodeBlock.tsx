@@ -57,19 +57,19 @@ export function CodeBlock({
                             const isHighlighted = highlightLines.includes(lineNumber);
                             const isCursor = cursorLine === lineNumber;
 
-                            const lineProps = getLineProps({ line });                            
+                            const { className: lineClassName, style: lineStyle, ...restLineProps } = getLineProps({ line });
 
                             return (
                                 <div
                                     key={i}
-                                    {...lineProps}
+                                    {...restLineProps}
                                     className={`
-                                        ${lineProps.className || ''}
+                                        ${lineClassName || ''}
                                         ${isHighlighted ? 'bg-yellow-100' : ''}
                                         ${isCursor ? 'bg-blue-50 border-l-4 border-blue-400 pl-2' : ''}
                                     `.trim()}
                                     style={{
-                                        ...lineProps.style,
+                                        ...lineStyle,
                                         ...(isHighlighted ? { backgroundColor: '#fef3c7' } : {}),
                                         ...(isCursor ? { backgroundColor: '#eff6ff' } : {}),
                                     }}
@@ -79,7 +79,6 @@ export function CodeBlock({
                                         maskHighlight && isHighlighted
                                             ? <span key={key} {...getTokenProps({ token: { ...token, content: token.content.replace(/\w/g, '•') } })} />
                                             : <span key={key} {...getTokenProps({ token })} />
-                                        // <span key={key} {...getTokenProps({ token })} />
                                     ))}
                                 </div>
                             );
