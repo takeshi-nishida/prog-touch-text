@@ -30,6 +30,14 @@ export function isCodeElementWithString(node: React.ReactNode): node is React.Re
   );
 }
 
+function isCodeElementWithClassName(node: React.ReactNode): node is React.ReactElement<{ children: React.ReactNode; className: string }> {
+  return (
+    isCodeElement(node) &&
+    'className' in node.props &&
+    typeof node.props.className === 'string'
+  );
+}
+
 export function isPreElement(node: React.ReactNode): node is React.ReactElement<{ children: React.ReactNode }> {
   return (
     isReactElementWithType(node) &&
@@ -38,17 +46,21 @@ export function isPreElement(node: React.ReactNode): node is React.ReactElement<
 }
 
 export function extractLanguageFromClassName(className?: string): string {
-  return className?.replace('language-', '').trim() || 'javascript';
+  return className?.split(',')[0].replace('language-', '').trim() || 'javascript';
 }
 
-export function extractCodeFromPre(preElement: React.ComponentProps<'pre'>): { code: string; language: string } | null {
-    const codeElement = preElement.children;    
+export function extractCodeFromPre(preElement: React.ComponentProps<'pre'>): { code: string; language: string, preview: boolean } | null {
+    const codeElement = preElement.children;
     if (!isCodeElementWithString(codeElement)) return null;
 
     const code = codeElement.props.children.trimEnd();
 
-    const language = extractLanguageFromClassName(preElement.className);
-    return { code, language };
+    if (!isCodeElementWithClassName(codeElement)) return { code, language: 'plaintext', preview: false };
+    const className = codeElement.props.className;
+    const language = extractLanguageFromClassName(className);
+    const preview = className.includes('preview');
+
+    return { code, language, preview };
 }
 
 export function findPreElement(node: React.ReactNode): React.ReactElement<{ children: React.ReactNode }> | null {

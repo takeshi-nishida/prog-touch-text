@@ -12,6 +12,7 @@ export const ProgTouchEmbedProvider = ProgTouchEmbedContext.Provider;
 
 export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
     const [currentStep, setCurrentStep] = useState(0);
+    const [maskHighlight, setMaskHighlight] = useState(false);
 
     const stepElements = React.Children.toArray(children).filter(isStepElement);
 
@@ -88,7 +89,6 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
     const thoughts = stepElements[currentStep]?.props.thoughts;
     const { code, highlightRange, undoneStep, isUndoStep, shouldShowComparison } = buildCode();
 
-
     const undoneCode = React.useMemo(() => {
         if (!undoneStep) return "";
         const preElement = findPreElement(undoneStep.props.children);
@@ -124,6 +124,15 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
                     <span className="text-sm text-gray-600 flex items-center">
                         ステップ {currentStep + 1} / {stepElements.length}
                     </span>
+                    <button
+                        className={`ml-auto px-3 py-1 rounded transition-transform ${maskHighlight
+                            ? 'bg-red-500 text-white scale-105 shadow-lg'
+                            : 'bg-blue-500 text-white scale-100'
+                            }`}
+                        onClick={() => setMaskHighlight(!maskHighlight)}
+                    >
+                        {maskHighlight ? '挑戦モード中' : '通常モード中'}
+                    </button>
                 </div>
 
                 {/* Thoughts display with undo styling */}
@@ -157,6 +166,7 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
                         code={code}
                         language="javascript"
                         highlightLines={highlightRange ? Array.from({ length: highlightRange.end - highlightRange.start + 1 }, (_, i) => highlightRange.start + i) : []}
+                        maskHighlight={maskHighlight}
                     />
                 </div>
             </div>

@@ -7,6 +7,7 @@ type CodeWithPreviewProps = {
     code: string;
     language?: string;
     highlightLines?: number[];
+    maskHighlight?: boolean;
     cursorLine?: number;
 };
 
@@ -14,6 +15,7 @@ export function CodeWithPreview({
     code, 
     language = 'javascript', 
     highlightLines = [],
+    maskHighlight = false,
     cursorLine 
 }: CodeWithPreviewProps) {
     const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -24,7 +26,7 @@ export function CodeWithPreview({
                 <!DOCTYPE html>
                 <html>
                 <head>
-                    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js" integrity="sha256-epE25cW8bLDbZpBpzok5g2FUQbKcQ4jNCgopH098G5M=" crossorigin="anonymous"></script>
                     <style>
                         body { 
                             margin: 0; 
@@ -60,6 +62,7 @@ export function CodeWithPreview({
                     code={code}
                     language={language}
                     highlightLines={highlightLines}
+                    maskHighlight={maskHighlight}
                     cursorLine={cursorLine}
                 />
             </div>

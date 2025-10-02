@@ -10,8 +10,6 @@ export interface StepProps {
 export type StepElement = React.ReactElement<StepProps>;
 
 export function Step({ children, thoughts, at, undo }: StepProps) {
-    console.log('Step component rendered with children:', children);
-
     const { code, language } = extractCodeFromPre({ children }) || { code: '', language: 'plaintext' };
 
     return (

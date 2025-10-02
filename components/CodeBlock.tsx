@@ -8,6 +8,7 @@ type CodeBlockProps = {
     code: string;
     language?: string;
     highlightLines?: number[]; // Array of line numbers to highlight (1-indexed)
+    maskHighlight?: boolean;   // Whether to mask the highlight (for educational purposes)
     cursorLine?: number;       // Single line number to show as cursor position (1-indexed)
     showCopyButton?: boolean;
 } & ComponentProps<'pre'>;
@@ -16,6 +17,7 @@ export function CodeBlock({
     code,
     language = 'javascript',
     highlightLines = [],
+    maskHighlight = false,
     cursorLine,
     showCopyButton = true,
     ...props
@@ -55,7 +57,7 @@ export function CodeBlock({
                             const isHighlighted = highlightLines.includes(lineNumber);
                             const isCursor = cursorLine === lineNumber;
 
-                            const lineProps = getLineProps({ line });
+                            const lineProps = getLineProps({ line });                            
 
                             return (
                                 <div
@@ -73,7 +75,11 @@ export function CodeBlock({
                                     }}
                                 >
                                     {line.map((token, key) => (
-                                        <span key={key} {...getTokenProps({ token })} />
+                                        // if maskHighlight and highlighted, replace all alphanumeric characters with dots
+                                        maskHighlight && isHighlighted
+                                            ? <span key={key} {...getTokenProps({ token: { ...token, content: token.content.replace(/\w/g, '•') } })} />
+                                            : <span key={key} {...getTokenProps({ token })} />
+                                        // <span key={key} {...getTokenProps({ token })} />
                                     ))}
                                 </div>
                             );

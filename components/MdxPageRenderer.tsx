@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { InlineCode } from '@/components/InlineCode';
 import { CodeBlock } from '@/components/CodeBlock';
+import { CodeWithPreview } from '@/components/CodeWithPreview';
 import { ProgTouchEmbed, useIsInProgTouchEmbed } from '@/components/ProgTouchEmbed';
 import { Step } from '@/components/Step';
 
@@ -77,12 +78,13 @@ export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
         return <InlineCode {...props} />;
       },
       pre: (props: ComponentProps<'pre'>) => {
+        console.log('Rendering <pre> with props:', props);
         if (isInProgTouchEmbed) {
           console.log('Detected inside ProgTouchEmbed');
           return <pre {...props} />;
         }
-        const { code, language } = extractCodeFromPre(props) || { code: '', language: 'plaintext' };
-        return <CodeBlock code={code} language={language} {...props} />;
+        const { code, language, preview } = extractCodeFromPre(props) || { code: '', language: 'plaintext', preview: false };
+        return preview ? <CodeWithPreview code={code} language={language} {...props} /> : <CodeBlock code={code} language={language} {...props} />;
       },
       img: (props: ComponentProps<'img'>) => <img className="my-8 max-w-full max-h-[480px] mx-auto rounded-lg shadow-lg shadow-gray-500" {...props} />,
       ProgTouchEmbed,

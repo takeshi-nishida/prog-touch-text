@@ -8,7 +8,8 @@ prev: null
 next: null
 parent: null
 ---
-
+# 実験場
+## ProgTouchEmbed コンポーネントのテスト
 <ProgTouchEmbed>
 
 <Step thoughts="いつものテンプレから始めよう">
@@ -43,7 +44,7 @@ function draw() {
 <Step at="A" thoughts="小さくしよう">
 ```javascript
   fill(255, 0, 0);
-  ellipse(100, 100, 30, 30);  // small
+  ellipse(100, 100, 30, 30);
 ```
 </Step>
 
@@ -54,3 +55,18 @@ function draw() {
 </Step>
 
 </ProgTouchEmbed>
+
+## プレビューだけつける場合のテスト
+```javascript,preview
+function setup() {
+  createCanvas(200, 200);
+  noStroke();
+}
+function draw() {
+  background(220);
+  fill(255);
+  rect(10, 40, 180, 120);
+  fill(255, 0, 0);
+  ellipse(100, 100, 30, 30);  // small
+}
+```
