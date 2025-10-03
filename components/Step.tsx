@@ -16,7 +16,7 @@ export function Step({ children, thoughts, at, undo }: StepProps) {
         <div className="step border-l-4 border-green-500 pl-4 py-2 my-2 bg-white rounded-r">
             {children || <p>ステップ内容</p>}
             {thoughts && <p className="text-gray-500 italic">思考: {thoughts}</p>}
-            {language && <p>written in {language}</p>}
+            <p>written in {language}</p>
         </div>
     );
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 
 function isElementType(node: React.ReactNode, typeName: string): boolean {
-  if(!React.isValidElement(node)) return false;
+  if (!React.isValidElement(node)) return false;
   const { type } = node;
-  if(typeof type === 'string') return type === typeName;
+  if (typeof type === 'string') return type === typeName;
   else if (typeof type === 'function') return type.name === typeName;
   return false;
 }
