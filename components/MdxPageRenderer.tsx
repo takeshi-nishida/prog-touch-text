@@ -78,11 +78,8 @@ export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
         return <InlineCode {...props} />;
       },
       pre: (props: ComponentProps<'pre'>) => {
-        console.log('Rendering <pre> with props:', props);
-        if (isInProgTouchEmbed) {
-          console.log('Detected inside ProgTouchEmbed');
-          return <pre {...props} />;
-        }
+        if (isInProgTouchEmbed) return <pre {...props} />;
+
         const { code, language, preview } = extractCodeFromPre(props) || { code: '', language: 'plaintext', preview: false };
         return preview ? <CodeWithPreview code={code} language={language} {...props} /> : <CodeBlock code={code} language={language} {...props} />;
       },
