@@ -74,7 +74,7 @@ export function CodeWithPreview({
                     </div>
                     <iframe
                         ref={iframeRef}
-                        className="w-full h-80 bg-white"
+                        className="w-full min-w-[200px] h-80 bg-white"
                         title="p5.js preview"
                         sandbox="allow-scripts allow-same-origin"
                         allow="accelerometer; gyroscope"

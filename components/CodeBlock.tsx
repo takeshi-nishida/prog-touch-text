@@ -48,7 +48,7 @@ export function CodeBlock({
             >
                 {({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <pre
-                        className={className + " border border-gray-500 rounded p-2 my-4 overflow-x-auto"}
+                        className={className + " border border-gray-500 rounded p-2 my-4 overflow-x-auto overflow-y-auto max-h-100"}
                         style={style}
                         {...props}
                     >
