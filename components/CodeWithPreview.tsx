@@ -37,6 +37,9 @@ export function CodeWithPreview({
                             min-height: 100vh; 
                             background: #f0f0f0;
                         }
+                        canvas {
+                            border: 1px solid #aaa;
+                        }
                     </style>
                 </head>
                 <body>
