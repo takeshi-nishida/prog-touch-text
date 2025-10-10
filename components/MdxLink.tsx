@@ -2,8 +2,8 @@
 import Link from "next/link";
 
 type MdxLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-  href: string | undefined;
-  children: React.ReactNode;
+  href?: string;
+  children?: React.ReactNode;
 };
 
 export function MdxLink({ href, children, ...props }: MdxLinkProps) {

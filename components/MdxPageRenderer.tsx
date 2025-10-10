@@ -58,10 +58,9 @@ export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
   { code: string; breadcrumbs: LinkData[]; navigations: { prev?: LinkData; next?: LinkData } }) {
   const Component = useMemo(() => getMDXComponent(code), [code]);
   const { toc } = useMemo(() => getMDXExport(code), [code]);
+  const isInProgTouchEmbed = useIsInProgTouchEmbed();
 
   function createComponents() {
-    const isInProgTouchEmbed = useIsInProgTouchEmbed();
-
     return {
       h1: (props: ComponentProps<'h1'>) => <h1 className="text-3xl font-bold my-4" {...props} />,
       h2: (props: ComponentProps<'h2'>) => <h2 className="text-2xl font-bold my-3" {...props} />,
