@@ -68,9 +68,9 @@ export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
       h4: (props: ComponentProps<'h4'>) => <h4 className="text-lg font-bold my-2" {...props} />,
       p: (props: ComponentProps<'p'>) => <p className="my-4" {...props} />,
       a: (props: ComponentProps<'a'>) => <MdxLink className="text-blue-600 underline" {...props} />,
-      ul: (props: ComponentProps<'ul'>) => <ul className="list-disc list-inside ml-4 my-2" {...props} />,
-      ol: (props: ComponentProps<'ol'>) => <ol className="list-decimal list-inside ml-4 my-2" {...props} />,
-      li: (props: ComponentProps<'li'>) => <li className="my-1" {...props} />,
+      ul: (props: ComponentProps<'ul'>) => <ul className="list-disc ml-8 my-4" {...props} />,
+      ol: (props: ComponentProps<'ol'>) => <ol className="list-decimal ml-8 my-8" {...props} />,
+      li: (props: ComponentProps<'li'>) => <li className="my-1 mb-2" {...props} />,
       blockquote: (props: ComponentProps<'blockquote'>) => <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4 text-gray-600" {...props} />,
       code: (props: ComponentProps<'code'>) => {
         const className = props.className || '';
