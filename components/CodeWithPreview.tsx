@@ -37,6 +37,9 @@ export function CodeWithPreview({
                             min-height: 100vh; 
                             background: #f0f0f0;
                         }
+                        canvas {
+                            border: 1px solid #aaa;
+                        }
                     </style>
                 </head>
                 <body>
@@ -74,10 +77,11 @@ export function CodeWithPreview({
                     </div>
                     <iframe
                         ref={iframeRef}
-                        className="w-full h-80 bg-white"
+                        className="w-full min-w-[200px] h-80 bg-white overflow-hidden"
                         title="p5.js preview"
                         sandbox="allow-scripts allow-same-origin"
                         allow="accelerometer; gyroscope"
+                        scrolling="no"
                     />
                 </div>
             </div>

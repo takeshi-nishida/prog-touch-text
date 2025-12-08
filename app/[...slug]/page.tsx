@@ -3,7 +3,7 @@ import MdxPageRenderer from '@/components/MdxPageRenderer';
 import type { ContentMeta } from '@/types/content';
 import type { LinkData } from '@/types/link';
 
-export const generateMetadata = async ({ params }: { params: { slug: string[] } }) => {
+export const generateMetadata = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
     const { slug } = await params;
     const { frontmatter } = await getMdxBySlug(slug.join('/'));
     return {
@@ -44,11 +44,7 @@ async function getNavigationLinks(frontmatter: ContentMeta) {
     return links;
 }
 
-export default async function Page({
-    params,
-}: {
-    params: Promise<{ slug: string[] }>
-}) {
+export default async function Page({ params }: { params: Promise<{ slug: string[] }> }) {
     const { slug } = await params;
     const { code, frontmatter } = await getMdxBySlug(slug.join('/'));
 

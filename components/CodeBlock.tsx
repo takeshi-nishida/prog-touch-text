@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { ComponentProps } from 'react';
 import { Highlight, themes } from 'prism-react-renderer';
 
@@ -23,6 +23,17 @@ export function CodeBlock({
     ...props
 }: CodeBlockProps) {
     const [copied, setCopied] = useState(false);
+    const preRef = useRef<HTMLPreElement | null>(null);
+
+    useEffect(() => { // scroll to first highlighted line
+        if (!preRef.current) return;
+        const pre = preRef.current;
+        const targetLine = preRef.current.querySelector('[data-highlight="true"]') as HTMLElement | null;
+        if(!targetLine) return;
+        const targetTop = targetLine.offsetTop - pre.clientHeight / 2;
+        const top = Math.max(targetTop, 0);
+        pre.scrollTo({ top, behavior: 'smooth' });
+    }, [code]);
 
     const handleCopy = async () => {
         try {
@@ -48,7 +59,8 @@ export function CodeBlock({
             >
                 {({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <pre
-                        className={className + " border border-gray-500 rounded p-2 my-4 overflow-x-auto"}
+                        ref={preRef}
+                        className={className + " border border-gray-500 rounded p-2 my-4 overflow-x-auto overflow-y-auto overscroll-none max-h-100"}
                         style={style}
                         {...props}
                     >
@@ -62,6 +74,7 @@ export function CodeBlock({
                             return (
                                 <div
                                     key={i}
+                                    data-highlight={isHighlighted ? 'true' : 'false'}
                                     {...restLineProps}
                                     className={`
                                         ${lineClassName || ''}
