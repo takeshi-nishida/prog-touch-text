@@ -6,6 +6,7 @@
     "pages": [
         "01-getting-started",
         "02-webapp",
-        "03-bots"
+        "03-bots",
+        "recipes"
     ]
 }

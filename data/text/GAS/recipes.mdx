@@ -1,0 +1,223 @@
+---
+title: "Google Apps Script レシピ集"
+description: ""
+updated: ""
+slug: "recipes"
+keywords: []
+prev: null
+next: null
+parent: null
+---
+
+# Google Apps Script レシピ集
+随時追加予定
+
+## JavaScript ライブラリを使う
+JavaScript で書かれたライブラリを Google Apps Script で使うには、ライブラリのコードをコピーして GAS のスクリプトエディタに貼り付けます。
+ライブラリによってはかなり大きなものもありますので、あまりいい気持ちはしません。
+
+## トリガーのレシピ
+### 用済みのトリガーを削除する
+トリガーは20個までしか作れないという決まりがあるので、用済みのトリガーは削除する必要があります。（執筆予定？）
+
+### 毎日指定時刻ぴったりに実行する
+Google Apps Script のトリガー設定画面からでは「６～７時」など幅のある指定しかできないので、毎日6:00ジャストに実行してほしい場合などに困ります。
+設定画面からではなく、プログラムでトリガーを設定することで、ぴったりに実行することができます。
+具体的には、指定の時刻より前の時間帯、たとえば「０～１時」のトリガーを設定しておき、その関数で特定の日時トリガーを新たに設定する、という方法をとります。
+
+（ここまでの情報があれば検索やAI生成で対応できるはず…すみません）
+
+----
+
+## 前回の実行結果を覚えておき、次回で利用する
+Google Apps Script の変数は、実行毎にリセットされてしまいますので、次の実行時まで覚えておくことができません。では、どうすればいいかというと色々考えられるのですが、Spreadsheet に書き込んでおいてそれを読み出すのがわかりやすいと思います。
+
+```javascript
+function count() {
+  const ss = SpreadsheetApp.getActive();
+  const sheet = ss.getSheetByName("count"); // count という名前のシートを用意しておく
+  const range = sheet.getRange(1, 1);
+
+  let n = range.getValue();
+  if(!n) n = 0; // 1回目は Spreadsheet に情報がないので別処理が必要
+  n++;
+
+  console.log(n + "回目の実行です");
+
+  range.setValue(n); // Spreadsheet に情報を保存する
+}
+```
+
+たとえば、ちょっとだけ気が利く LINE ボットなどを作るときに便利です。
+
+----
+
+## ランダムにデータを選択する
+あらかじめ決められたメッセージの中からランダムに選択して返事するボットなどを作るときに使います。「配列のランダム番目」を使うプログラムを書きます。
+Spreadsheet からデータを取ってくるようにすると、データを編集するのが楽だったり、Webスクレイピングと組み合わせることができたりと応用が広がります。
+
+```javascript
+function randomMessageArray(){
+  const messages = ["大吉", "中吉", "小吉", "末吉", "凶", "大凶"];
+  return messages[Math.floor(messages.length * Math.random())]; // 配列のランダム番目
+}
+
+function randomMessageSheet(){
+  const ss = SpreadsheetApp.getActive();
+  const sheet = ss.getSheetByName("messages");
+  const rows = sheet.getDataRange().getValues();
+  const row = rows[Math.floor(rows.length * Math.random())]; // シートのランダム番目
+  return row[0];
+}
+```
+
+----
+
+## 文字列周りの処理・条件分岐いろいろ
+### 単純な文字列比較
+たとえば、LINEから送られてきたメッセージの種類を判定するときは単純な文字列比較でいけます。
+
+```javascript
+  const type1 = "text";
+  const type2 = "sticker";
+
+  console.log(type1 == "text"); // true になる
+  console.log(type2 == "text"); // false になる
+```
+
+### 文字列を区切り文字で区切って比較
+たとえば、LINEのメッセージに複数の情報をまとめて送りたいとき（何語に翻訳するか＋翻訳したいメッセージ）などに使えます。
+
+```javascript
+  // 例：文字列を区切り文字で区切る
+  const message1 = "英語 おはようございます"; // 半角スペース
+  const message2 = "英語　おはようございます"; // 全角スペース
+
+  console.log(message1.split(" ")); // ["英語", "おはようございます"] と分割される
+  console.log(message2.split(" ")); // 全角と半角が違うとうまく区切れない
+
+  // 例：正規表現を使うと複数の空白文字に対応できる (半角スペース・全角スペース・タブなど)
+  console.log(message1.split(/\s/));
+  console.log(message2.split(/\s/));
+```
+
+区切ると比較を組み合わせるとこんな感じになります。
+
+```javascript
+  const message = "英語\nおはようございます";
+  // 例：区切った後に比較
+  const lines = message.split("\n"); // 改行は \n
+  if(lines[0] == "英語"){
+      console.log(LanguageApp.translate(lines[1], 'ja', 'en'));
+  }
+```
+
+### 文字列を単語で分割する（形態素解析）
+たとえば、「ウェブページから単語を収集したい」とすると、取得した文章を単語単位で区切る必要が生じます。これは「形態素解析」と呼ばれていて結構難しいのですが、長年の人類の蓄積があります。ライブラリを使う方法とウェブAPIを使う方法がありますが、GASで使うならウェブAPIの方が楽です。
+
+ウェブAPIはデータをHTTPで送信して解析結果を受け取る仕組みです。代表的なものには以下があります。
+- [Yahoo 日本語形態素解析 API](https://developer.yahoo.co.jp/webapi/jlp/ma/v2/parse.html)
+
+ライブラリは以下のようなものがあります。ブラウザ上で形態素解析したい場合にはこちらがお勧めです。
+- [TinySegmenter](http://chasen.org/~taku/software/TinySegmenter/)
+- [kuromoji.js](https://github.com/takuyaa/kuromoji.js/)
+
+### 文字列が日本語かどうか調べる
+
+```javascript
+  const japanese = /(\p{Script_Extensions=Hiragana}|\p{Script_Extensions=Katakana}|\p{Script_Extensions=Han})+/gu;
+  const message = "僕、ドラえもん";
+  const message2 = "Hello, world";
+  console.log(message.match(japanese));
+  console.log(message2.match(japanese));
+```
+
+----
+
+## Web スクレイピング＋正規表現 実践編
+テキストから自分がほしい部分だけをきれいに抜き出す正規表現を作るコツをいくつか紹介します。
+
+コツ１：ブラウザのコンソール上で試行錯誤する
+Google Apps Script (GAS) とブラウザの JavaScript の正規表現はほぼ同じものです。GAS だと1回実行するごとにデータ受信することになってしまうので、正規表現を作る作業はブラウザのコンソール上で試した方が速いです。うまくいったら GAS の方に持ってきて使います。
+
+コツ２：ChatGPT 等の生成AIを活用する
+「以下のようなテキストから日付と記念日の情報を抜き出すJavaScriptの正規表現を作ってください。（テキストの一部をコピペ）」などと頼んでみるとだいたいうまくいくので試してみてください。
+
+----
+
+## スプレッドシートからデータを検索する
+スプレッドシートに蓄積されている情報から（ランダムにではなく）、指定した情報を取得してきたい場合があります。たとえば…
+
+- アイドルグループのメンバー名を送信するとそのメンバーのサイリウムカラーを返信してくれるLINEボット
+- 授業の名前を送信するとその授業の教室を返信してくれるLINEボット
+
+```javascript
+function searchFromSheet(key){
+  const ss = SpreadsheetApp.getActive();
+  const sheet = ss.getSheetByName("data");
+  const rows = sheet.getDataRange().getValues();
+
+  for(let i = 0; i < rows.length; i++){ // 1行ずつ繰り返しで、探している行か調べる
+    const row = rows[i];
+    if(row[0] == key){ // 探している行だった場合
+      return row[1];
+    }
+  }
+  return ""; // 最後まで見つからなかった場合
+}
+```
+
+当てはまるものを全部取得したい場合は、見つかったものを配列に追加していく形にします。
+
+```javascript
+function searchAllFromSheet(key){
+  const ss = SpreadsheetApp.getActive();
+  const sheet = ss.getSheetByName("data");
+  const rows = sheet.getDataRange().getValues();
+  const results = [];
+
+  for(let i = 0; i < rows.length; i++){ // 1行ずつ繰り返しで、探している行か調べる
+    const row = rows[i];
+    if(row[0] == key){ // 探している行だった場合
+      results.push(row[1]);
+    }
+  }
+  return results; // 見つかったもの全部を返す
+}
+```
+
+----
+
+## 時刻のレシピ
+
+### 現在の日時を取得・表示する
+```javascript
+  const now = new Date(); // 現在の時刻
+  console.log(now);
+  console.log(now.toDateString());
+  console.log(now.toTimeString());
+  console.log(now.toLocaleDateString("ja-JP-u-ca-japanese"));
+  console.log(now.toLocaleTimeString("ja-JP"));
+```
+
+### 文字列で日時や時刻を指定する
+```javascript
+const t = "2023-01-01 00:00:00";
+const d = new Date(t);
+console.log(d);
+```
+
+LINE Bot を作るときなどには “19:00:00" のような時刻だけのテキストから「今日の19時」を表すような Date を作ることができたら便利ですなのですが、自分で作るのはあまりに大変なので外部ライブラリを使いましょう。
+
+### 指定時刻から〇〇分・〇〇時間・○○日経過を計算する
+```javascript
+  const now = new Date();
+  const d = new Date("2026-01-01 00:00:00");
+  const diff = now - d;
+  console.log(diff + "[milliseconds]");
+  console.log(Math.floor(diff / 1000 / 60) + "[minutes]");
+  console.log(Math.floor(diff / 1000 / 60 / 60 / 24) + "[days]");
+```
+
+----
+
