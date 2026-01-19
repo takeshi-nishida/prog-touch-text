@@ -22,19 +22,53 @@ export function isPreElement(node: React.ReactNode): node is React.ReactElement<
   return isElementType(node, 'pre');
 }
 
-export function extractCodeFromPre(preElement: React.ComponentProps<'pre'>): { code: string; language: string, preview: boolean } | null {
+export function extractCodeFromPre(preElement: React.ComponentProps<'pre'>): { code: string; language: string, preview: boolean, highlightLines: number[] } | null {
     const codeElement = preElement.children;
     if(!isCodeElement(codeElement) || typeof codeElement.props.children !== 'string') return null;
 
     const code = codeElement.props.children.trimEnd();
 
     const codeProps = codeElement.props;
-    if(!('className' in codeProps) || typeof codeProps.className !== 'string') return { code, language: 'plaintext', preview: false };
+    if(!('className' in codeProps) || typeof codeProps.className !== 'string') return { code, language: 'plaintext', preview: false, highlightLines: [] };
 
-    const className = codeProps.className;
-    const language = className?.split(',')[0].replace('language-', '').trim() || 'javascript';
+    const className = String(codeProps.className);
+
+    const languageToken = className.split(/[\s,{]+/)[0] || '';
+    const language = languageToken.replace(/^language-/, '') || 'javascript';
+    
     const preview = className.includes('preview');
-    return { code, language, preview };
+
+    const braceMatch = className.match(/\{([^}]+)\}/);
+    const braceContent = braceMatch ? braceMatch[1] : undefined;
+    const highlightLines = parseLineList(braceContent);
+    
+    return { code, language, preview, highlightLines };
+}
+
+function parseLineList(spec?: string): number[] {
+  if (!spec) return [];
+  const s = spec.trim();
+  if (!s) return [];
+
+  const tokens = s.split(/[,;\s]+/).map(t => t.trim()).filter(Boolean);
+  const set = new Set<number>();
+
+  for (const tok of tokens) {
+    const rangeMatch = tok.match(/^(\d+)-(\d+)$/);
+    if (rangeMatch) {
+      const start = parseInt(rangeMatch[1], 10);
+      const end = parseInt(rangeMatch[2], 10);
+      if (!isNaN(start) && !isNaN(end) && start > 0 && end >= start) {
+        for (let i = start; i <= end; i++) set.add(i);
+      }
+      continue;
+    }
+
+    const n = parseInt(tok, 10);
+    if (!isNaN(n) && n > 0) set.add(n);
+  }
+
+  return Array.from(set).sort((a, b) => a - b);
 }
 
 export function findPreElement(node: React.ReactNode): React.ReactElement<{ children: React.ReactNode }> | null {

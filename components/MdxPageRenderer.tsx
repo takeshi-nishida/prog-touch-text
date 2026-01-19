@@ -81,8 +81,8 @@ export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
       pre: (props: ComponentProps<'pre'>) => {
         if (isInProgTouchEmbed) return <pre {...props} />;
 
-        const { code, language, preview } = extractCodeFromPre(props) || { code: '', language: 'plaintext', preview: false };
-        return preview ? <CodeWithPreview code={code} language={language} {...props} /> : <CodeBlock code={code} language={language} {...props} />;
+        const { code, language, preview, highlightLines } = extractCodeFromPre(props) || { code: '', language: 'plaintext', preview: false, highlightLines: [] };
+        return preview ? <CodeWithPreview code={code} language={language} highlightLines={highlightLines} {...props} /> : <CodeBlock code={code} language={language} highlightLines={highlightLines} {...props} />;
       },
       img: (props: ComponentProps<'img'>) => <img className="my-8 max-w-full max-h-[480px] mx-auto rounded-lg shadow-lg shadow-gray-500" {...props} />,
       ProgTouchEmbed,
