@@ -1,0 +1,542 @@
+1:"$Sreact.fragment"
+2:I[9766,[],""]
+3:I[8924,[],""]
+5:I[4431,[],"OutletBoundary"]
+7:I[5278,[],"AsyncMetadataOutlet"]
+9:I[4431,[],"ViewportBoundary"]
+b:I[4431,[],"MetadataBoundary"]
+c:"$Sreact.suspense"
+e:I[7150,[],""]
+:HL["/prog-touch-text/_next/static/css/ef6bd0d8b0e5d2f7.css","style"]
+0:{"P":null,"b":"pa_qCL33B6GTdPr-DNOno","p":"/prog-touch-text","c":["","GAS","04-gemini-api",""],"i":false,"f":[[["",{"children":[["slug","GAS/04-gemini-api","c"],{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/prog-touch-text/_next/static/css/ef6bd0d8b0e5d2f7.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"className":"__variable_2ddef5 __variable_2c8101 antialiased","children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}],{"children":[["slug","GAS/04-gemini-api","c"],["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L4",null,["$","$L5",null,{"children":["$L6",["$","$L7",null,{"promise":"$@8"}]]}]]}],{},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$L9",null,{"children":"$La"}],null],["$","$Lb",null,{"children":["$","div",null,{"hidden":true,"children":["$","$c",null,{"fallback":null,"children":"$Ld"}]}]}]]}],false]],"m":"$undefined","G":["$e",[]],"s":false,"S":true}
+a:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+6:null
+8:{"metadata":[["$","title","0",{"children":"Google Apps Script で Gemini API を使う"}]],"error":null,"digest":"$undefined"}
+d:"$8:metadata"
+f:I[7754,["619","static/chunks/619-ba102abea3e3d0e4.js","788","static/chunks/788-0f5c8fa8c5dd2b15.js","48","static/chunks/app/%5B...slug%5D/page-4dce82a7bb152490.js"],"default"]
+10:Tb027,var Component=(()=>{var h=Object.create;var i=Object.defineProperty;var m=Object.getOwnPropertyDescriptor;var g=Object.getOwnPropertyNames;var u=Object.getPrototypeOf,v=Object.prototype.hasOwnProperty;var y=(r,e)=>()=>(e||r((e={exports:{}}).exports,e),e.exports),x=(r,e)=>{for(var t in e)i(r,t,{get:e[t],enumerable:!0})},s=(r,e,t,o)=>{if(e&&typeof e=="object"||typeof e=="function")for(let a of g(e))!v.call(r,a)&&a!==t&&i(r,a,{get:()=>e[a],enumerable:!(o=m(e,a))||o.enumerable});return r};var w=(r,e,t)=>(t=r!=null?h(u(r)):{},s(e||!r||!r.__esModule?i(t,"default",{value:r,enumerable:!0}):t,r)),I=r=>s(i({},"__esModule",{value:!0}),r);var d=y((A,c)=>{c.exports=_jsx_runtime});var k={};x(k,{default:()=>p,frontmatter:()=>f,toc:()=>b});var n=w(d()),b=[{depth:1,value:"Google Apps Script \u3067 Gemini API \u3092\u4F7F\u3046",id:"google-apps-script-\u3067-gemini-api-\u3092\u4F7F\u3046",children:[{depth:2,value:"\u4E8B\u524D\u6E96\u5099\uFF08API\u30AD\u30FC\u306E\u4F5C\u6210\uFF09",id:"\u4E8B\u524D\u6E96\u5099api\u30AD\u30FC\u306E\u4F5C\u6210"},{depth:2,value:"API \u30AD\u30FC\u3092\u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u306B\u4FDD\u5B58\u3059\u308B",id:"api-\u30AD\u30FC\u3092\u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u306B\u4FDD\u5B58\u3059\u308B"},{depth:2,value:"Gemini API \u306E\u547C\u3073\u51FA\u3057\u65B9\u6CD5",id:"gemini-api-\u306E\u547C\u3073\u51FA\u3057\u65B9\u6CD5"},{depth:2,value:"\u30EC\u30FC\u30C8\u5236\u9650\u3068\u30E2\u30C7\u30EB\u9078\u3073",id:"\u30EC\u30FC\u30C8\u5236\u9650\u3068\u30E2\u30C7\u30EB\u9078\u3073"},{depth:2,value:"\u30B5\u30F3\u30D7\u30EB\uFF1A\u65E5\u672C\u6587\u5316\u306E\u8AAC\u660E\uFF08\u5358\u8A9E\uFF09",id:"\u30B5\u30F3\u30D7\u30EB\u65E5\u672C\u6587\u5316\u306E\u8AAC\u660E\u5358\u8A9E"},{depth:2,value:"\u30B5\u30F3\u30D7\u30EB\uFF1A\u65E5\u672C\u6587\u5316\u306E\u8AAC\u660E\uFF08\u753B\u50CF\uFF09",id:"\u30B5\u30F3\u30D7\u30EB\u65E5\u672C\u6587\u5316\u306E\u8AAC\u660E\u753B\u50CF"},{depth:2,value:"\u30B9\u30AD\u30FC\u30DE\u3092\u6307\u5B9A\u3059\u308B",id:"\u30B9\u30AD\u30FC\u30DE\u3092\u6307\u5B9A\u3059\u308B"},{depth:2,value:"\u30B5\u30F3\u30D7\u30EB\uFF1A\u65E5\u672C\u6587\u5316\u89E3\u8AAC\u30A6\u30A7\u30D6\u30A2\u30D7\u30EA",id:"\u30B5\u30F3\u30D7\u30EB\u65E5\u672C\u6587\u5316\u89E3\u8AAC\u30A6\u30A7\u30D6\u30A2\u30D7\u30EA",children:[{depth:3,value:"\u30BB\u30AF\u30B7\u30E7\u30F3: AI usage with text only propmt",id:"\u30BB\u30AF\u30B7\u30E7\u30F3-ai-usage-with-text-only-propmt"},{depth:3,value:"\u30BB\u30AF\u30B7\u30E7\u30F3: AI usage with image data",id:"\u30BB\u30AF\u30B7\u30E7\u30F3-ai-usage-with-image-data"},{depth:3,value:"\u30BB\u30AF\u30B7\u30E7\u30F3: Speak and show elements one-by-one",id:"\u30BB\u30AF\u30B7\u30E7\u30F3-speak-and-show-elements-one-by-one"}]},{depth:2,value:"\u307E\u3068\u3081",id:"\u307E\u3068\u3081"}]}],f={title:"Google Apps Script \u3067 Gemini API \u3092\u4F7F\u3046",description:"",updated:"",slug:"recipes",keywords:[],prev:"03-bots",next:null,parent:"GAS"};function l(r){let e={a:"a",blockquote:"blockquote",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",img:"img",p:"p",pre:"pre",...r.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(e.h1,{id:"google-apps-script-\u3067-gemini-api-\u3092\u4F7F\u3046",children:"Google Apps Script \u3067 Gemini API \u3092\u4F7F\u3046"}),`
+`,(0,n.jsx)(e.p,{children:`\u4ECA\u56DE\u306F\u751F\u6210AI\u3092\u5229\u7528\u3059\u308B\u30A2\u30D7\u30EA\u958B\u767A\u3092\u4F53\u9A13\u3057\u307E\u3059\u3002\r
+\u30D7\u30ED\u30B0\u30E9\u30E0\u3092\u66F8\u304F\u306E\u306B\u4F7F\u3046\u306E\u3067\u306F\u306A\u304F\u3001\u30A2\u30D7\u30EA\u306E\u6A5F\u80FD\u306E\u4E00\u90E8\u3068\u3057\u3066\u751F\u6210AI\u3092\u5229\u7528\u3057\u307E\u3059\u3002`}),`
+`,(0,n.jsx)(e.p,{children:"\u4ECA\u56DE\u306F\u7121\u6599\u67A0\u304C\u3042\u3063\u3066\u6559\u6750\u3068\u3057\u3066\u4F7F\u3044\u3084\u3059\u3044 Google \u306E Gemini API \u3092\u5229\u7528\u3057\u307E\u3059\u3002"}),`
+`,(0,n.jsx)(e.h2,{id:"\u4E8B\u524D\u6E96\u5099api\u30AD\u30FC\u306E\u4F5C\u6210",children:"\u4E8B\u524D\u6E96\u5099\uFF08API\u30AD\u30FC\u306E\u4F5C\u6210\uFF09"}),`
+`,(0,n.jsxs)(e.p,{children:[(0,n.jsx)(e.a,{href:"https://ai.google/studio",children:"Google AI Studio"}),` \u306B\u30A2\u30AF\u30BB\u30B9\u3057\u3066\u3001Google \u30A2\u30AB\u30A6\u30F3\u30C8\u3067\u30ED\u30B0\u30A4\u30F3\u3057\u307E\u3059\u3002\r
+\u30ED\u30B0\u30A4\u30F3\u3057\u305F\u3089\u3001\u5DE6\u5074\u306E\u30E1\u30CB\u30E5\u30FC\u304B\u3089\u300CAPI \u30AD\u30FC\u300D\u3092\u9078\u629E\u3057\u3001\u300CAPI \u30AD\u30FC\u3092\u4F5C\u6210\u300D\u30DC\u30BF\u30F3\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u65B0\u3057\u3044 API \u30AD\u30FC\u3092\u4F5C\u6210\u3057\u307E\u3059\u3002\r
+Google Cloud Platform \u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u3092\u9078\u629E\u307E\u305F\u306F\u4F5C\u6210\u3059\u308B\u3088\u3046\u306B\u6C42\u3081\u3089\u308C\u307E\u3059\u304C\u3001\u9069\u5F53\u306A\u540D\u524D\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u3092\u65B0\u898F\u4F5C\u6210\u3057\u3066\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044\u3002`]}),`
+`,(0,n.jsx)(e.p,{children:"API\u30AD\u30FC\u306FAPI\u3092\u5229\u7528\u3059\u308B\u305F\u3081\u306E\u8A8D\u8A3C\u60C5\u5831\u3067\u3001\u81EA\u52D5\u751F\u6210\u3057\u305F\u30D1\u30B9\u30EF\u30FC\u30C9\u306E\u3088\u3046\u306A\u9577\u3044\u6587\u5B57\u5217\u3067\u3059\u3002\u516C\u958B\u3057\u3066\u3057\u307E\u308F\u306A\u3044\u3088\u3046\u306B\u6CE8\u610F\u3057\u3066\u304F\u3060\u3055\u3044\u3002"}),`
+`,(0,n.jsx)(e.h2,{id:"api-\u30AD\u30FC\u3092\u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u306B\u4FDD\u5B58\u3059\u308B",children:"API \u30AD\u30FC\u3092\u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u306B\u4FDD\u5B58\u3059\u308B"}),`
+`,(0,n.jsx)(e.p,{children:`API\u30AD\u30FC\u304C\u6E96\u5099\u3067\u304D\u307E\u3057\u305F\u3089 Google Apps Script \u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u3092\u65B0\u898F\u4F5C\u6210\u3057\u3001\u30A8\u30C7\u30A3\u30BF\u3092\u958B\u3044\u3066\u304F\u3060\u3055\u3044\u3002\r
+\u4F5C\u6210\u3057\u305FAPI\u30AD\u30FC\u3092\u4F7F\u3044\u3084\u3059\u3044\u3088\u3046\u306B Google Apps Script \u306E\u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u306B\u8FFD\u52A0\u3057\u307E\u3059\u3002`}),`
+`,(0,n.jsxs)(e.p,{children:[`\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u8A2D\u5B9A\u3092\u958B\u304D\u307E\u3059\u3002\r
+`,(0,n.jsx)(e.img,{src:"https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_open_settings.png",alt:"GAS \u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u8A2D\u5B9A\u753B\u9762\u3092\u958B\u304F"})]}),`
+`,(0,n.jsxs)(e.p,{children:[`\u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u306E\u30BB\u30AF\u30B7\u30E7\u30F3\u307E\u3067\u30B9\u30AF\u30ED\u30FC\u30EB\u3057\u3001\u300C\u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u7DE8\u96C6\u300D\u30DC\u30BF\u30F3\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u307E\u3059\u3002\r
+\u30AD\u30FC\u3092\u300CGEMINI_API_KEY\u300D\u3001\u5024\u306B\u5148\u307B\u3069\u4F5C\u6210\u3057\u305FAPI\u30AD\u30FC\u3092\u5165\u529B\u3057\u3066\u300C\u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u4FDD\u5B58\u300D\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u307E\u3059\u3002\r
+`,(0,n.jsx)(e.img,{src:"https://www2.kobe-u.ac.jp/~tnishida/programming/images/gas_script_properties.png",alt:"GAS \u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u306E\u8A2D\u5B9A"})]}),`
+`,(0,n.jsx)(e.p,{children:"\u4FDD\u5B58\u304C\u5B8C\u4E86\u3057\u305F\u3089\u3001\u30E1\u30CB\u30E5\u30FC\u306E\u300C\u30A8\u30C7\u30A3\u30BF\u300D\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30A8\u30C7\u30A3\u30BF\u306B\u623B\u308A\u307E\u3059\u3002"}),`
+`,(0,n.jsx)(e.hr,{}),`
+`,(0,n.jsx)(e.h2,{id:"gemini-api-\u306E\u547C\u3073\u51FA\u3057\u65B9\u6CD5",children:"Gemini API \u306E\u547C\u3073\u51FA\u3057\u65B9\u6CD5"}),`
+`,(0,n.jsx)(e.p,{children:`Gemini API \u3092\u547C\u3073\u51FA\u3059\u306B\u306F HTTP \u30EA\u30AF\u30A8\u30B9\u30C8\u3092\u9001\u4FE1\u3057\u307E\u3059\u306E\u3067 UrlFetchApp \u3092\u5229\u7528\u3057\u307E\u3059\u3002\r
+URL \u306B\u306F\u4F7F\u3044\u305F\u3044\u30E2\u30C7\u30EB\u540D\u3068 API \u30AD\u30FC\u3092\u542B\u3081\u307E\u3059\u3002\r
+\u5177\u4F53\u7684\u306B\u306F\u4EE5\u4E0B\u306E\u3088\u3046\u306A\u30B3\u30FC\u30C9\u306B\u306A\u308A\u307E\u3059\u3002`}),`
+`,(0,n.jsxs)(e.blockquote,{children:[`
+`,(0,n.jsxs)(e.p,{children:["URL \u306E\u6587\u5B57\u5217\u3092\u7D44\u307F\u7ACB\u3066\u308B\u90E8\u5206\u3067\u306F\u30D0\u30C3\u30AF\u30AF\u30A9\u30FC\u30C8 ",(0,n.jsx)(e.code,{children:"`"}),` \u3092\u4F7F\u3063\u3066\u3044\u307E\u3059\u3002\r
+JavaScript \u3067\u6587\u5B57\u5217\u3092\u6271\u3046\u3068\u304D\u306F\u666E\u901A\u30B7\u30F3\u30B0\u30EB\u30AF\u30A9\u30FC\u30C8 `,(0,n.jsx)(e.code,{children:"'"})," \u3084\u30C0\u30D6\u30EB\u30AF\u30A9\u30FC\u30C8 ",(0,n.jsx)(e.code,{children:'"'})," \u3092\u4F7F\u3044\u307E\u3059\u304C\u3001\u30D0\u30C3\u30AF\u30AF\u30A9\u30FC\u30C8\u3092\u4F7F\u3046\u3068\u6587\u5B57\u5217\u306E\u4E2D\u306B\u5909\u6570\u3092\u57CB\u3081\u8FBC\u3080\u3053\u3068\u304C\u3067\u304D\u308B\u306E\u3067\u4FBF\u5229\u3067\u3059\u3002"]}),`
+`]}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-javascript",children:`const apiKey = PropertiesService.getScriptProperties().getProperty("GEMINI_API_KEY");\r
+const gemini = 'gemini-2.5-flash';\r
+const geminiUrl = \`https://generativelanguage.googleapis.com/v1beta/models/\${gemini}:generateContent?key=\${apiKey}\`;\r
+\r
+function callGemini(parts, schema){\r
+  const payload = {\r
+    contents: [ { parts }  ],\r
+    generationConfig: {\r
+      response_mime_type: "application/json",\r
+      response_json_schema: schema\r
+    }\r
+  };\r
+\r
+  const options = {\r
+    method: 'post',\r
+    contentType: \`application/json\`,\r
+    payload: JSON.stringify(payload)\r
+  };\r
+\r
+  const response = UrlFetchApp.fetch(geminiUrl, options);\r
+  const data = JSON.parse(response);\r
+  return data.candidates[0];\r
+}
+`})}),`
+`,(0,n.jsxs)(e.p,{children:[(0,n.jsx)(e.code,{children:"callGemini(parts, schema)"}),` \u95A2\u6570\u306F Gemini API \u3092\u547C\u3073\u51FA\u3057\u3066\u7D50\u679C\u3092\u8FD4\u3059\u95A2\u6570\u3067\u3001\u305D\u306E\u307E\u307E\u4F7F\u3044\u307E\u308F\u3057\u3066\u3044\u305F\u3060\u304F\u3053\u3068\u304C\u3067\u304D\u308B\u3088\u3046\u306B\u4F5C\u3063\u3066\u3044\u307E\u3059\u3002\r
+\u5F15\u6570 `,(0,n.jsx)(e.code,{children:"parts"})," \u306B\u306F\u30D7\u30ED\u30F3\u30D7\u30C8\uFF08\u6307\u793A\u6587\uFF09\u3092\u3001",(0,n.jsx)(e.code,{children:"schema"}),` \u306B\u306F\u7D50\u679C\u306E\u30B9\u30AD\u30FC\u30DE\uFF08\u5F62\u5F0F\uFF09\u3092\u6307\u5B9A\u3057\u307E\u3059\u3002\r
+\u30D7\u30ED\u30F3\u30D7\u30C8\u306E\u4F5C\u308A\u65B9\u3084\u30B9\u30AD\u30FC\u30DE\u306E\u6307\u5B9A\u65B9\u6CD5\u306B\u3064\u3044\u3066\u306F\u3053\u306E\u5F8C\u8AAC\u660E\u3057\u307E\u3059\u3002`]}),`
+`,(0,n.jsx)(e.h2,{id:"\u30EC\u30FC\u30C8\u5236\u9650\u3068\u30E2\u30C7\u30EB\u9078\u3073",children:"\u30EC\u30FC\u30C8\u5236\u9650\u3068\u30E2\u30C7\u30EB\u9078\u3073"}),`
+`,(0,n.jsxs)(e.p,{children:[`Gemini API \u306B\u306F\u30EC\u30FC\u30C8\u5236\u9650\u304C\u3042\u308A\u307E\u3059\u3002\r
+\u305F\u3068\u3048\u3070\u4E0A\u306E\u4F8B\u3067\u4F7F\u3063\u3066\u3044\u308B `,(0,n.jsx)(e.code,{children:'"gemini-2.5-flash"'}),` \u30E2\u30C7\u30EB\u306E\u5834\u5408\u3001\u7121\u6599\u3067\u5229\u7528\u3067\u304D\u308B\u306E\u306F 1 \u5206\u3042\u305F\u308A\u306E\u30EA\u30AF\u30A8\u30B9\u30C8\u6570\u306F 5 \u56DE\u307E\u3067\u30011 \u65E5\u3042\u305F\u308A\u306E\u30EA\u30AF\u30A8\u30B9\u30C8\u6570\u306F 20 \u56DE\u307E\u3067\u3068\u306A\u3063\u3066\u3044\u307E\u3059\uFF082026 \u5E74 1 \u6708\u73FE\u5728\uFF09\u3002\r
+\u3042\u3063\u3068\u3044\u3046\u9593\u306B\u4F7F\u3044\u5207\u3063\u3066\u3057\u307E\u3044\u305D\u3046\u306A\u56DE\u6570\u3067\u3059\u3002\u6709\u6599\u30D7\u30E9\u30F3\u306B\u52A0\u5165\u3059\u308B\u3068\u30EC\u30FC\u30C8\u5236\u9650\u304C\u7DE9\u548C\u3055\u308C\u307E\u3059\u304C\u3001\u547C\u3073\u51FA\u3057\u3054\u3068\u306B\u6599\u91D1\u304C\u767A\u751F\u3057\u307E\u3059\u306E\u3067\u6CE8\u610F\u3057\u3066\u304F\u3060\u3055\u3044\u3002`]}),`
+`,(0,n.jsx)(e.p,{children:`\u30EC\u30FC\u30C8\u5236\u9650\u306F\u30E2\u30C7\u30EB\u3054\u3068\u306B\u7570\u306A\u308A\u3001\u57FA\u672C\u7684\u306B\u306F\u6027\u80FD\u304C\u9AD8\u3044\u30E2\u30C7\u30EB\u307B\u3069\u30EC\u30FC\u30C8\u5236\u9650\u304C\u53B3\u3057\u304F\u306A\u308A\u307E\u3059\u3002\r
+\u7279\u306B\u6027\u80FD\u304C\u6C42\u3081\u3089\u308C\u306A\u3044\u5834\u5408\u3084\u7DF4\u7FD2\u4E2D\u306F\u3001\u3088\u308A\u30EC\u30FC\u30C8\u5236\u9650\u306E\u7DE9\u3044\u30E2\u30C7\u30EB\u3092\u9078\u3076\u306E\u3082\u624B\u3067\u3059\u3002`}),`
+`,(0,n.jsx)(e.p,{children:"2026 \u5E74 1 \u6708\u73FE\u5728\u3001Gemma \u3068\u3044\u3046\u30AA\u30FC\u30D7\u30F3\u306A\u30E2\u30C7\u30EB\u304C\u516C\u958B\u3055\u308C\u3066\u304A\u308A\u3001\u7121\u6599\u67A0\u3067\u3082\u304B\u306A\u308A\u306E\u56DE\u6570\u3092\u5229\u7528\u3067\u304D\u307E\u3059\u3002"}),`
+`,(0,n.jsx)(e.p,{children:"\u4EE5\u4E0B\u306B Gemma \u30E2\u30C7\u30EB\u3092\u5229\u7528\u3059\u308B\u5834\u5408\u306E\u30B3\u30FC\u30C9\u3092\u793A\u3057\u307E\u3059\u3002"}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-javascript",children:`const apiKey = PropertiesService.getScriptProperties().getProperty("GEMINI_API_KEY");\r
+const gemma = 'gemma-3-4b-it';\r
+const gemmaUrl = \`https://generativelanguage.googleapis.com/v1beta/models/\${gemma}:generateContent?key=\${apiKey}\`;const geminiUrl = \`https://generativelanguage.googleapis.com/v1beta/models/\${gemini}:generateContent?key=\${apiKey}\`;\r
+\r
+function callGemma(parts){\r
+  const payload = {\r
+    contents: [ { parts }  ],\r
+  };\r
+\r
+  const options = {\r
+    method: 'post',\r
+    contentType: \`application/json\`,\r
+    payload: JSON.stringify(payload)\r
+  };\r
+\r
+  const response = UrlFetchApp.fetch(gemmaUrl, options);\r
+  const data = JSON.parse(response);\r
+  return data.candidates[0];\r
+}
+`})}),`
+`,(0,n.jsx)(e.p,{children:`\u5148\u307B\u3069\u306E\u30B3\u30FC\u30C9\u3068\u307B\u3068\u3093\u3069\u540C\u3058\u3067\u3059\u304C\u3001\u30E2\u30C7\u30EB\u540D\u304C\u7570\u306A\u308B\u3053\u3068\u306B\u52A0\u3048\u3001\u30B9\u30AD\u30FC\u30DE\u3092\u6307\u5B9A\u3057\u3066\u3044\u306A\u3044\u70B9\u304C\u7570\u306A\u308A\u307E\u3059\u3002\r
+Gemma \u30E2\u30C7\u30EB\u3067\u306F\u30B9\u30AD\u30FC\u30DE\u306E\u6307\u5B9A\u304C\u30B5\u30DD\u30FC\u30C8\u3055\u308C\u3066\u3044\u306A\u3044\u305F\u3081\u3067\u3059\u3002\r
+\u30B9\u30AD\u30FC\u30DE\u304C\u6307\u5B9A\u3067\u304D\u308B\u30E1\u30EA\u30C3\u30C8\u306F\u3068\u3066\u3082\u5927\u304D\u3044\u306E\u3059\u304C\u3001\u30EC\u30FC\u30C8\u5236\u9650\u306E\u53B3\u3057\u3044\u30E2\u30C7\u30EB\u3067\u3057\u304B\u5229\u7528\u3067\u304D\u306A\u3044\u306E\u304C\u6B8B\u5FF5\u306A\u3068\u3053\u308D\u3067\u3059\u3002\u8A73\u3057\u304F\u306F\u5F8C\u8FF0\u3057\u307E\u3059\u3002`}),`
+`,(0,n.jsx)(e.h2,{id:"\u30B5\u30F3\u30D7\u30EB\u65E5\u672C\u6587\u5316\u306E\u8AAC\u660E\u5358\u8A9E",children:"\u30B5\u30F3\u30D7\u30EB\uFF1A\u65E5\u672C\u6587\u5316\u306E\u8AAC\u660E\uFF08\u5358\u8A9E\uFF09"}),`
+`,(0,n.jsxs)(e.p,{children:[`\u305D\u308C\u3067\u306F\u5B9F\u969B\u306B Gemini API \u3092\u547C\u3073\u51FA\u3057\u3066\u307F\u307E\u3057\u3087\u3046\u3002\r
+\u3042\u308B\u5358\u8A9E\u306B\u3064\u3044\u3066\u65E5\u672C\u6587\u5316\u306E\u89B3\u70B9\u304B\u3089\u8AAC\u660E\u3059\u308B\u30B5\u30F3\u30D7\u30EB\u30B3\u30FC\u30C9\u3092\u4EE5\u4E0B\u306B\u793A\u3057\u307E\u3059\u3002\r
+\u30E1\u30CB\u30E5\u30FC\u30D0\u30FC\u304B\u3089 `,(0,n.jsx)(e.code,{children:"testDescribeWord"}),` \u95A2\u6570\u3092\u9078\u3093\u3067\u5B9F\u884C\u3057\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002\r
+\u30B9\u30AF\u30EA\u30D7\u30C8\u30D7\u30ED\u30D1\u30C6\u30A3\u306E\u8A2D\u5B9A\u7B49\u304C\u6B63\u3057\u304F\u884C\u308F\u308C\u3066\u3044\u308C\u3070\u3001\u30B3\u30F3\u30BD\u30FC\u30EB\u306B\u8AAC\u660E\u6587\u304C\u8868\u793A\u3055\u308C\u308B\u306F\u305A\u3067\u3059\u3002`]}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-javascript",children:`function testDescribeWord(){\r
+  describeWord("\u6075\u65B9\u5DFB");\r
+}\r
+\r
+function describeWord(word){\r
+  const text = \`\r
+You are a person who is very knowledgeable about Japanese culture.\r
+You are asked to explain the word \${word}.\r
+\r
+Explain the word and Japanese culture through it, in a friendly, conversational tone.\r
+\r
+Guidelines:\r
+- Use natural, spoken English\r
+- Explain it in ONE or TWO short sentences.\r
+- Keep it casual and friendly, like talking to a friend\r
+- Do not sound like a textbook or tour guide\r
+- Avoid overly technical terms\r
+- If there is no Japanese aspect, say so honestly instead of forcing an explanation\r
+\`\r
+\r
+  const parts = [{ text: text }];\r
+\r
+  const result = callGemma(parts);\r
+  // const result = callGemini(parts);\r
+\r
+  console.log(result.content);\r
+  return result.content;\r
+}
+`})}),`
+`,(0,n.jsxs)(e.blockquote,{children:[`
+`,(0,n.jsxs)(e.p,{children:[`\u30D7\u30ED\u30F3\u30D7\u30C8\u306F\u76EE\u7684\u3092AI\u30C1\u30E3\u30C3\u30C8\u306B\u4F1D\u3048\u3066\u751F\u6210\u3057\u3066\u3082\u3089\u3063\u305F\u3082\u306E\u3092\u4F7F\u3063\u3066\u3044\u307E\u3059\u3002\u30B5\u30DC\u308A\u305F\u3044\u308F\u3051\u3067\u306F\u306A\u304F\u3066\u57FA\u672C\u305D\u3046\u3057\u305F\u65B9\u304C\u3046\u307E\u304F\u3044\u304D\u3084\u3059\u3044\u304B\u3089\u3067\u3059\u3002\r
+\u5909\u6570 `,(0,n.jsx)(e.code,{children:"word"})," \u3092\u57CB\u3081\u8FBC\u3080\u3053\u3068\u3084\u8AAD\u307F\u3084\u3059\u304F\u6539\u884C\u3057\u305F\u307E\u307E\u4F7F\u3046\u3053\u3068\u3092\u76EE\u7684\u3068\u3057\u3066\u30D0\u30C3\u30AF\u30AF\u30A9\u30FC\u30C8 ",(0,n.jsx)(e.code,{children:"`"})," \u3067\u56F2\u3080\u65B9\u6CD5\u3092\u4F7F\u3063\u3066\u3044\u307E\u3059\u3002"]}),`
+`]}),`
+`,(0,n.jsxs)(e.p,{children:[`\u3053\u306E\u304F\u3089\u3044\u306E\u4F8B\u3067\u3057\u305F\u3089 Gemma \u30E2\u30C7\u30EB\u3067\u5341\u5206\u306B\u5BFE\u5FDC\u3067\u304D\u307E\u3059\u304C\u3001 Gemini \u30E2\u30C7\u30EB\u3068\u3082\u6BD4\u8F03\u3057\u3066\u307F\u308B\u3068\u9762\u767D\u3044\u3067\u3057\u3087\u3046\u3002\r
+\u8A66\u3057\u3066\u307F\u305F\u3044\u65B9\u306F\u30B3\u30FC\u30C9\u4E2D\u306E `,(0,n.jsx)(e.code,{children:"callGemma(parts)"})," \u3068 ",(0,n.jsx)(e.code,{children:"callGemini(parts)"})," \u306E\u30B3\u30E1\u30F3\u30C8\u3092\u5165\u308C\u66FF\u3048\u3066\u5B9F\u884C\u3057\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002"]}),`
+`,(0,n.jsx)(e.h2,{id:"\u30B5\u30F3\u30D7\u30EB\u65E5\u672C\u6587\u5316\u306E\u8AAC\u660E\u753B\u50CF",children:"\u30B5\u30F3\u30D7\u30EB\uFF1A\u65E5\u672C\u6587\u5316\u306E\u8AAC\u660E\uFF08\u753B\u50CF\uFF09"}),`
+`,(0,n.jsx)(e.p,{children:`Gemini API \u3067\u306F\u753B\u50CF\u3092\u542B\u3080\u30D7\u30ED\u30F3\u30D7\u30C8\u3082\u9001\u4FE1\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002\r
+\u3053\u3053\u3067\u306F\u753B\u50CF\u306B\u542B\u307E\u308C\u308B\u65E5\u672C\u6587\u5316\u306E\u8981\u7D20\u306B\u3064\u3044\u3066\u8AAC\u660E\u3059\u308B\u30B5\u30F3\u30D7\u30EB\u3092\u898B\u3066\u3044\u304D\u307E\u3057\u3087\u3046\u3002`}),`
+`,(0,n.jsx)(e.p,{children:`\u753B\u50CF\u3092\u542B\u3080\u30D7\u30ED\u30F3\u30D7\u30C8\u3092\u4F5C\u6210\u3059\u308B\u306B\u306F\u753B\u50CF\u3092\u6587\u5B57\u5217\u306B\u5909\u63DB\u3057\u3066\u9001\u4FE1\u3059\u308B\u65B9\u6CD5\u304C\u7C21\u5358\u3067\u3059\u3002\r
+\u6587\u5B57\u5217\u306E\u5909\u63DB\u306B\u306F Base64 \u30A8\u30F3\u30B3\u30FC\u30C9\u3068\u547C\u3070\u308C\u308B\u65B9\u6CD5\u3092\u7528\u3044\u307E\u3059\u3002\r
+\u305F\u3068\u3048\u3070 Google Apps Script \u3067\u306F\u4EE5\u4E0B\u306E\u3088\u3046\u306B\u3057\u3066 Google \u30C9\u30E9\u30A4\u30D6\u306B\u4FDD\u5B58\u3055\u308C\u3066\u3044\u308B\u753B\u50CF\u3092 Base64 \u30A8\u30F3\u30B3\u30FC\u30C9\u3055\u308C\u305F\u6587\u5B57\u5217\u306B\u5909\u63DB\u3067\u304D\u307E\u3059\u3002`}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-javascript",children:`function getImageAsBase64(fileId) {\r
+  try {\r
+    const file = DriveApp.getFileById(fileId);\r
+    const imageBlob = file.getBlob();\r
+    const imageBytes = imageBlob.getBytes();\r
+    const data = Utilities.base64Encode(imageBytes);\r
+    const mimeType = imageBlob.getContentType();\r
+    return { mime_type: mimeType, data };\r
+  } catch (e) {\r
+    console.error("Error reading image from Google Drive: " + e.toString());\r
+    return null;\r
+  }\r
+}
+`})}),`
+`,(0,n.jsx)(e.p,{children:`\u305D\u308C\u3067\u306F\u5B9F\u969B\u306B\u753B\u50CF\u3092\u542B\u3080\u30D7\u30ED\u30F3\u30D7\u30C8\u3092 Gemini API \u306B\u9001\u4FE1\u3057\u3066\u307F\u307E\u3057\u3087\u3046\u3002\r
+\u307E\u305A\u306F Gemma \u30E2\u30C7\u30EB\u3092\u4F7F\u3063\u305F\u30B5\u30F3\u30D7\u30EB\u30B3\u30FC\u30C9\u3092\u4EE5\u4E0B\u306B\u793A\u3057\u307E\u3059\u3002`}),`
+`,(0,n.jsxs)(e.p,{children:["\u30B3\u30FC\u30C9\u4E2D\u306E ",(0,n.jsx)(e.code,{children:"imageFileId"}),` \u306B\u306F Google \u30C9\u30E9\u30A4\u30D6\u306B\u4FDD\u5B58\u3055\u308C\u3066\u3044\u308B\u753B\u50CF\u30D5\u30A1\u30A4\u30EB\u306EID\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\uFF08\u30CF\u30A4\u30E9\u30A4\u30C8\u90E81\uFF09\u3002\r
+\u753B\u50CF\u30D5\u30A1\u30A4\u30EB\u306EID\u3092\u8ABF\u3079\u308B\u306B\u306F\u3001Google \u30C9\u30E9\u30A4\u30D6\u3067\u753B\u50CF\u30D5\u30A1\u30A4\u30EB\u3092\u53F3\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u300C\u30A2\u30D7\u30EA\u3067\u958B\u304F\u300D\u300C\u65B0\u3057\u3044\u30BF\u30D6\u3067\u958B\u304F\u300D\u3092\u9078\u3073\u3001\u8868\u793A\u3055\u308C\u305FURL\u306E\u4E2D\u304B\u3089 `,(0,n.jsx)(e.code,{children:'"https://drive.google.com/file/d/"'})," \u3068 ",(0,n.jsx)(e.code,{children:'"/view"'})," \u306E\u9593\u306B\u3042\u308B\u90E8\u5206\u3092\u30B3\u30D4\u30FC\u3057\u3066\u304F\u3060\u3055\u3044\u3002"]}),`
+`,(0,n.jsxs)(e.p,{children:["\u753B\u50CFID\u304C\u5165\u529B\u3067\u304D\u305F\u3089\u30E1\u30CB\u30E5\u30FC\u30D0\u30FC\u304B\u3089 ",(0,n.jsx)(e.code,{children:"testDescribeImageGemma"})," \u95A2\u6570\u3092\u9078\u3093\u3067\u5B9F\u884C\u3057\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002"]}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-javascript{1,31-34}",children:`const imageFileId = '\u3053\u3053\u306B\u753B\u50CF\u30D5\u30A1\u30A4\u30EB\u306EID\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044';\r
+\r
+function testDescribeImageGemma(){\r
+  const image = getImageAsBase64(imageFileId);\r
+  describeImageGemma(image);\r
+}\r
+\r
+const prompt = \`\r
+You are a person who is very knowledgeable about Japanese culture.\r
+You are going out together with the user, casually walking around and looking at things through the camera.\r
+\r
+When an image is provided, look for elements related to Japanese culture in the image\r
+(such as buildings, streets, signs, food, clothing, religious objects, seasonal details, or everyday customs).\r
+\r
+Explain what you notice in a friendly, conversational tone, as if you are saying:\r
+\u201CHey, look at that,\u201D or \u201CSee that over there?\u201D\r
+\r
+Guidelines:\r
+- Use natural, spoken English\r
+- Explain it in ONE or TWO short sentences.\r
+- Keep it casual and friendly, like talking to a friend\r
+- Do not sound like a textbook or tour guide\r
+- Avoid overly technical terms\r
+- If you are not completely sure, say things like \u201CIt looks like\u2026\u201D or \u201CThis might be\u2026\u201D\r
+- If there are no clear Japanese cultural elements, say so honestly instead of forcing an explanation\r
+\r
+Your explanation should feel like:\r
+A culturally knowledgeable companion pointing something out during a walk.\`\r
+\r
+function describeImageGemma(image){\r
+  const parts = [\r
+    { inline_data: image },\r
+    { text: prompt }\r
+  ];\r
+\r
+  const result = callGemma(parts);\r
+  console.log(result.content);\r
+  return result.content;\r
+}
+`})}),`
+`,(0,n.jsxs)(e.p,{children:["\u6587\u5B57\u5217\u306B\u5909\u63DB\u3057\u305F\u753B\u50CF\u30C7\u30FC\u30BF\u306F text \u3068\u306F\u5206\u3051\u3066 ",(0,n.jsx)(e.code,{children:"inline_data"})," \u30D7\u30ED\u30D1\u30C6\u30A3\u3068\u3057\u3066\u6E21\u3059\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\uFF08\u30CF\u30A4\u30E9\u30A4\u30C8\u90E8\u52062\uFF09\u3002"]}),`
+`,(0,n.jsx)(e.h2,{id:"\u30B9\u30AD\u30FC\u30DE\u3092\u6307\u5B9A\u3059\u308B",children:"\u30B9\u30AD\u30FC\u30DE\u3092\u6307\u5B9A\u3059\u308B"}),`
+`,(0,n.jsx)(e.p,{children:`\u753B\u50CF\u306E\u5206\u6790\u7D50\u679C\u304B\u3089\u300C\u4F55\u304C\u3069\u3053\u306B\u3042\u308B\u304B\u300D\u306E\u60C5\u5831\u3092\u629C\u304D\u51FA\u3059\u3053\u3068\u304C\u3067\u304D\u308C\u3070\u3001\u753B\u50CF\u306B\u76EE\u5370\u3092\u4ED8\u3051\u308B\u306A\u3069\u306E\u5FDC\u7528\u304C\u53EF\u80FD\u306B\u306A\u308A\u307E\u3059\u304C\u3001\r
+\u8907\u6570\u306E\u60C5\u5831\u304C\u5165\u308A\u6DF7\u3058\u3063\u305F\u751F\u6210AI\u306E\u51FA\u529B\u6587\u5B57\u5217\u304B\u3089\u5FC5\u8981\u306A\u60C5\u5831\u3092\u629C\u304D\u51FA\u3059\u306E\u306F\u7C21\u5358\u3067\u306F\u3042\u308A\u307E\u305B\u3093\u3002\r
+\u751F\u6210AI\u306E\u51FA\u529B\u306B\u306F\u78BA\u7387\u7684\u6319\u52D5\u304C\u3042\u308A\u3001\u540C\u3058\u30D7\u30ED\u30F3\u30D7\u30C8\u3092\u7528\u3044\u3066\u3082\u540C\u3058\u5F62\u5F0F\u306E\u6587\u5B57\u5217\u304C\u8FD4\u3063\u3066\u304F\u308B\u3068\u306F\u9650\u3089\u306A\u3044\u305F\u3081\u3067\u3059\u3002`}),`
+`,(0,n.jsx)(e.p,{children:`\u5B89\u5B9A\u3057\u305F\u5F62\u5F0F\u3067\u7D50\u679C\u3092\u5F97\u308B\u624B\u6CD5\u3068\u3057\u3066 Gemini API \u3067\u306F\u30B9\u30AD\u30FC\u30DE\u6307\u5B9A\u304C\u30B5\u30DD\u30FC\u30C8\u3055\u308C\u3066\u3044\u307E\u3059\u3002\r
+\u6307\u5B9A\u3055\u308C\u305F\u30B9\u30AD\u30FC\u30DE\u3092\u7528\u3044\u3066\u751F\u6210AI\u306E\u51FA\u529B\u78BA\u7387\u3092\u5236\u5FA1\u3059\u308B\u3053\u3068\u3067\u3001\u5B89\u5B9A\u3057\u305F\u5F62\u5F0F\u3067\u306E\u51FA\u529B\u3092\u5B9F\u73FE\u3057\u3066\u3044\u308B\u305D\u3046\u3067\u3059\u3002`}),`
+`,(0,n.jsxs)(e.p,{children:[`\u4EE5\u4E0B\u306B Gemini \u30E2\u30C7\u30EB\u3092\u7528\u3044\u3066\u30B9\u30AD\u30FC\u30DE\u3092\u6307\u5B9A\u3059\u308B\u30B5\u30F3\u30D7\u30EB\u30B3\u30FC\u30C9\u3092\u793A\u3057\u307E\u3059\u3002\r
+\u30E1\u30CB\u30E5\u30FC\u30D0\u30FC\u304B\u3089 `,(0,n.jsx)(e.code,{children:"testDescribeImageGemini"})," \u95A2\u6570\u3092\u9078\u3093\u3067\u5B9F\u884C\u3057\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002"]}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-javascript{12-32}",children:`function testDescribeImageGemini(){\r
+  const image = getImageAsBase64(imageFileId);\r
+  describeImageGemini(image);\r
+}\r
+\r
+function describeImageGemini(image){\r
+  const parts = [\r
+    { inline_data: image },\r
+    { text: prompt }\r
+  ];\r
+\r
+  const schema = {\r
+    type: "object",\r
+    properties: {\r
+      elements: {\r
+        type: "array",\r
+        description: "Elements found in the picture with its bounding-box.",\r
+        items: {\r
+          type: "object",\r
+          properties: {\r
+            name: { type: "string" },\r
+            explanation: { type: "string" },\r
+            x: { type: "number", description: "Normalized x-coordinate of the top-left corner (0.0 to 1.0)." },\r
+            y: { type: "number", description: "Normalized y-coordinate of the top-left corner (0.0 to 1.0)." },\r
+            w: { type: "number", description: "Normalized width of the bounding box (0.0 to 1.0)." },\r
+            h: { type: "number", description: "Normalized height of the bounding box (0.0 to 1.0)." }\r
+          },\r
+          required: ["name", "explanation", "x", "y", "w", "h"]\r
+        }\r
+      }\r
+    }\r
+  }\r
+\r
+  const result = callGemini(parts, schema);\r
+  console.log(result.content);\r
+  return result.content;\r
+}
+`})}),`
+`,(0,n.jsx)(e.h2,{id:"\u30B5\u30F3\u30D7\u30EB\u65E5\u672C\u6587\u5316\u89E3\u8AAC\u30A6\u30A7\u30D6\u30A2\u30D7\u30EA",children:"\u30B5\u30F3\u30D7\u30EB\uFF1A\u65E5\u672C\u6587\u5316\u89E3\u8AAC\u30A6\u30A7\u30D6\u30A2\u30D7\u30EA"}),`
+`,(0,n.jsx)(e.p,{children:"\u3053\u3053\u307E\u3067\u306B\u4F5C\u3063\u305F\u30B3\u30FC\u30C9\u3092\u7D44\u307F\u5408\u308F\u305B\u3066\u3001\u753B\u50CF\u306B\u542B\u307E\u308C\u308B\u65E5\u672C\u6587\u5316\u306E\u8981\u7D20\u306B\u3064\u3044\u3066\u89E3\u8AAC\u3059\u308B\u30A6\u30A7\u30D6\u30A2\u30D7\u30EA\u3092\u4F5C\u6210\u3057\u3066\u307F\u307E\u3057\u3087\u3046\u3002"}),`
+`,(0,n.jsxs)(e.p,{children:["\u307E\u305A\u306F ",(0,n.jsx)(e.code,{children:"doGet()"})," \u95A2\u6570\u3092\u4EE5\u4E0B\u306E\u3088\u3046\u306B\u4F5C\u6210\u3057\u3066\u3001HTML \u30D5\u30A1\u30A4\u30EB ",(0,n.jsx)(e.code,{children:"app.html"})," \u3092\u8AAD\u307F\u8FBC\u3080\u3088\u3046\u306B\u3057\u307E\u3059\u3002"]}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-javascript",children:`function doGet(){\r
+  const template = HtmlService.createTemplateFromFile("app");\r
+  return template.evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1');\r
+}
+`})}),`
+`,(0,n.jsxs)(e.blockquote,{children:[`
+`,(0,n.jsx)(e.p,{children:"addMetaTag \u30E1\u30BD\u30C3\u30C9\u306F\u30B9\u30DE\u30FC\u30C8\u30D5\u30A9\u30F3\u3067\u898B\u3084\u3059\u304F\u3059\u308B\u305F\u3081\u306E\u8A2D\u5B9A\u3067\u3059\u3002"}),`
+`]}),`
+`,(0,n.jsxs)(e.p,{children:["\u6B21\u306B HTML \u30D5\u30A1\u30A4\u30EB ",(0,n.jsx)(e.code,{children:"app.html"}),` \u3092\u65B0\u898F\u4F5C\u6210\u3057\u3001\u4EE5\u4E0B\u306E\u3088\u3046\u306B\u30B3\u30FC\u30C9\u3092\u8A18\u8FF0\u3057\u307E\u3059\u3002\r
+\u30C7\u30D7\u30ED\u30A4\u3057\u3066\u30A6\u30A7\u30D6\u30A2\u30D7\u30EA\u3092\u958B\u3044\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002`]}),`
+`,(0,n.jsx)(e.p,{children:`\u304B\u306A\u308A\u9577\u3044\u30B3\u30FC\u30C9\u306B\u306A\u308A\u307E\u3059\u304C\u3001\u5C11\u3057\u3067\u3082\u8AAD\u307F\u3084\u3059\u304F\u306A\u308B\u3088\u3046\u6A5F\u80FD\u3054\u3068\u306B\u30B3\u30E1\u30F3\u30C8\u3092\u5165\u308C\u3066\u30BB\u30AF\u30B7\u30E7\u30F3\u5206\u3051\u3057\u3066\u3044\u307E\u3059\u3002\r
+\u4E0B\u3067\u30BB\u30AF\u30B7\u30E7\u30F3\u3054\u3068\u306B\u8AAC\u660E\u3092\u52A0\u3048\u307E\u3059\u306E\u3067\u3001\u307E\u305A\u306F\u5168\u4F53\u3092\u3056\u3063\u3068\u773A\u3081\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002`}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-html",children:`<!DOCTYPE html>\r
+<html>\r
+  <head>\r
+    <base target="_top">\r
+    <style>\r
+      body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }\r
+      #video { display: block; width: 100%; height: auto; max-width: 640px; }\r
+      #cameraWrapper { position: relative; display: block; margin: 0 auto; background: #000; border-radius: 8px; overflow: hidden; width: 100%; max-width: 640px; }\r
+      #overlayCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }\r
+      button { padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px; border: none; background: #007bff; color: white; }\r
+      button:hover { background: #0056b3; }\r
+      #wordInput { padding: 10px; width: 60%; }\r
+      #status { display: block; margin: 10px 0; color: #666; font-style: italic; }\r
+    </style>\r
+  </head>\r
+  <body>\r
+    <h1>Describe Japanese Culture</h1>\r
+    <div>\r
+      <input id="wordInput" type="text" placeholder="\u4F8B:\u304A\u3057\u307C\u308A,\u3082\u3063\u305F\u3044\u306A\u3044\u2026"></input>\r
+      <button id="askWordButton">Ask</button>\r
+    </div>\r
+    <div id="cameraWrapper">\r
+      <video id="video" autoplay playsinline></video>\r
+      <canvas id="overlayCanvas"></canvas>\r
+    </div>\r
+    <canvas id="captureCanvas" style="display: none"></canvas>\r
+    <div>\r
+      <button id="switchButton">Switch Camera</button>\r
+      <button id="startButton">Start Camera</button>\r
+      <button id="geminiButton">Ask Gemini</button>\r
+      <button id="gemmaButton">Ask Gemmma</button>\r
+    </div>\r
+    <div>\r
+       <span id="status">Status: start</span>\r
+    </div>\r
+\r
+    <script>\r
+      const status = document.getElementById("status");\r
+      const wordInput = document.getElementById("wordInput");\r
+      const video = document.getElementById("video");\r
+      const canvas = document.getElementById("captureCanvas");\r
+      const overlayCanvas = document.getElementById("overlayCanvas");\r
+      const askWordButton = document.getElementById("askWordButton");\r
+      const switchButton = document.getElementById("switchButton");\r
+      const startButton = document.getElementById("startButton");\r
+      const gemmaButton = document.getElementById("gemmaButton");\r
+      const geminiButton = document.getElementById("geminiButton");\r
+\r
+      askWordButton.addEventListener("click", askWord);\r
+      switchButton.addEventListener("click", switchCamera);\r
+      startButton.addEventListener("click", startCamera);\r
+      gemmaButton.addEventListener("click", askImageGemma);\r
+      geminiButton.addEventListener("click", askImageGemini);\r
+\r
+////////////////////////////////////////////////////////////////////////////////////////////////////\r
+// AI usage with text only propmt\r
+////////////////////////////////////////////////////////////////////////////////////////////////////\r
+\r
+      function askWord(){\r
+        const word = wordInput.value;\r
+        if(!word){\r
+          status.textContent = "Please input any word.";\r
+          return;\r
+        }\r
+        status.textContent = "Waiting for an explanation of word: " + word;\r
+        google.script.run.withSuccessHandler(explanationReceived).describeWord(word);\r
+      }\r
+\r
+      function explanationReceived(data){\r
+        console.log(data);\r
+        const text = data.parts[0].text;\r
+        status.textContent = "Explanation received: " + text;\r
+        \r
+        window.speechSynthesis.cancel();\r
+        const utterance = new SpeechSynthesisUtterance(text);\r
+        utterance.lang = "en-US";\r
+        utterance.rate = 1.1;\r
+        window.speechSynthesis.speak(utterance);\r
+      }\r
+\r
+////////////////////////////////////////////////////////////////////////////////////////////////////\r
+// AI usage with image data\r
+////////////////////////////////////////////////////////////////////////////////////////////////////\r
+      let currentFacingMode = "environment";\r
+\r
+      async function switchCamera() {\r
+        currentFacingMode = (currentFacingMode === "user") ? "environment" : "user"; \r
+        if (video.srcObject) {\r
+          video.srcObject.getTracks().forEach(track => track.stop());\r
+        }\r
+        startCamera();\r
+      }\r
+\r
+      async function startCamera(){\r
+        try {\r
+          const constraints = { \r
+            video: { facingMode: currentFacingMode } \r
+          };\r
+          const stream = await navigator.mediaDevices.getUserMedia(constraints);\r
+          video.srcObject = stream;\r
+          \r
+          video.onloadedmetadata = () => {\r
+            overlayCanvas.width = video.videoWidth;\r
+            overlayCanvas.height = video.videoHeight;\r
+            canvas.width = video.videoWidth;\r
+            canvas.height = video.videoHeight;\r
+            status.textContent = \`Camera: \${currentFacingMode} (\${video.videoWidth}x\${video.videoHeight})\`;\r
+          };\r
+        } catch(err){\r
+          console.error(err);\r
+          status.textContent = "Camera Error: " + err.message;\r
+        }\r
+      }\r
+\r
+      function askImageGemma(){\r
+        const data = getImageData();\r
+        google.script.run.withSuccessHandler(explanationReceived).describeImageGemma({ data, mime_type: "image/jpeg" });\r
+        status.textContent = "Waiting for explanation...";\r
+      }\r
+\r
+      function askImageGemini(){\r
+        const data = getImageData();\r
+        google.script.run.withSuccessHandler(geminiReceived).describeImageGemini({ data, mime_type: "image/jpeg" });\r
+        status.textContent = "Waiting for detailed explanation using Gemini...";\r
+      }\r
+\r
+      function getImageData(){\r
+        const context = canvas.getContext("2d");\r
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);\r
+        return canvas.toDataURL("image/jpeg", 0.5).split(",")[1];\r
+      }\r
+\r
+      function geminiReceived(data){\r
+        status.textContent = "Gemini result received.";\r
+        console.log(data);\r
+        const text = data.parts[0].text;\r
+        const elements = JSON.parse(text).elements;\r
+        speakElements(elements);\r
+      }\r
+\r
+////////////////////////////////////////////////////////////////////////////////////////////////////\r
+// Speak and show elements one-by-one\r
+////////////////////////////////////////////////////////////////////////////////////////////////////\r
+\r
+      let speechQueue = [];\r
+      let currentIndex = 0;\r
+      let isSpeaking = false;\r
+\r
+      function speakElements(elements){\r
+        window.speechSynthesis.cancel();\r
+        speechQueue = elements;\r
+        currentIndex = 0;\r
+        isSpeaking = false;\r
+\r
+        speakNext();\r
+      }\r
+\r
+      // Speak/show an element and issue the next task\r
+      function speakNext() {\r
+        if (currentIndex >= speechQueue.length) {\r
+          isSpeaking = false;\r
+          highlightElement(null);\r
+          return;\r
+        }\r
+\r
+        const element = speechQueue[currentIndex];\r
+        isSpeaking = true;\r
+\r
+        highlightElement(element);\r
+\r
+        const utterance = new SpeechSynthesisUtterance(element.explanation);\r
+        utterance.lang = "en-US";\r
+        utterance.rate = 1.1;\r
+\r
+        utterance.onend = () => {\r
+          currentIndex++;\r
+          speakNext();\r
+        };\r
+\r
+        window.speechSynthesis.speak(utterance);\r
+      }\r
+\r
+      // Show an element\r
+      function highlightElement(e) {\r
+        if(!e) return;\r
+        const overlayCtx = prepareCanvasContext();\r
+\r
+        // Convert normalized coordinates (0.0 to 1.0) to pixel values\r
+        const canvasW = overlayCanvas.width;\r
+        const canvasH = overlayCanvas.height;\r
+        const x = e.x * canvasW;\r
+        const y = e.y * canvasH;\r
+        const w = e.w * canvasW;\r
+        const h = e.h * canvasH;\r
+\r
+        // Draw bounding-box rectangle\r
+        overlayCtx.strokeStyle = "rgba(255, 0, 0, 0.8)";\r
+        overlayCtx.lineWidth = 2;\r
+        overlayCtx.strokeRect(x, y, w, h);\r
+\r
+        // Draw label\r
+        const padding = 6;\r
+        overlayCtx.font = "14px sans-serif";\r
+        const text = e.name || e.explanation;\r
+        const textWidth = overlayCtx.measureText(text).width;\r
+        overlayCtx.fillStyle = "rgba(0, 0, 0, 0.6)";\r
+        overlayCtx.fillRect(x, y - 22, textWidth + padding * 2, 20);\r
+        overlayCtx.fillStyle = "white";\r
+        overlayCtx.fillText(text, x + padding, y - 7);\r
+      }\r
+\r
+      function prepareCanvasContext(){\r
+        const overlayCtx = overlayCanvas.getContext("2d");\r
+        const rect = overlayCanvas.getBoundingClientRect();\r
+  \r
+        if (overlayCanvas.width !== rect.width || overlayCanvas.height !== rect.height) {\r
+          overlayCanvas.width = rect.width;\r
+          overlayCanvas.height = rect.height;\r
+        }\r
+\r
+        overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);\r
+        return overlayCtx;\r
+      }\r
+    <\/script>\r
+  </body>\r
+</html>
+`})}),`
+`,(0,n.jsx)(e.h3,{id:"\u30BB\u30AF\u30B7\u30E7\u30F3-ai-usage-with-text-only-propmt",children:"\u30BB\u30AF\u30B7\u30E7\u30F3: AI usage with text only propmt"}),`
+`,(0,n.jsxs)(e.p,{children:["\u30A6\u30A7\u30D6\u30A2\u30D7\u30EA\u3067 Gemini API \u3092\u4F7F\u3046\u5834\u5408\u3001Gemini API \u3092\u547C\u3073\u51FA\u3057\u3066\u3044\u308B Google Apps Script \u95A2\u6570\u3092 ",(0,n.jsx)(e.code,{children:"google.script.run"}),` \u7D4C\u7531\u3067\u547C\u3073\u51FA\u3057\u307E\u3059\uFF08\u30CF\u30A4\u30E9\u30A4\u30C8\u90E81\uFF09\u3002\r
+`,(0,n.jsx)(e.code,{children:"describeWord(word)"})," \u95A2\u6570\u306F\u5358\u8A9E\u8AAC\u660E\u7528\u306E\u95A2\u6570\u3092\u305D\u306E\u307E\u307E\u4F7F\u3063\u3066\u3044\u307E\u3059\u3002"]}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-javascript{8,16-20}",children:`function askWord(){\r
+    const word = wordInput.value;\r
+    if(!word){\r
+        status.textContent = "Please input any word.";\r
+        return;\r
+    }\r
+    status.textContent = "Waiting for an explanation of word: " + word;\r
+    google.script.run.withSuccessHandler(explanationReceived).describeWord(word);\r
+}\r
+\r
+function explanationReceived(data){\r
+    console.log(data);\r
+    const text = data.parts[0].text;\r
+    status.textContent = "Explanation received: " + text;\r
+\r
+    window.speechSynthesis.cancel();\r
+    const utterance = new SpeechSynthesisUtterance(text);\r
+    utterance.lang = "en-US";\r
+    utterance.rate = 1.1;\r
+    window.speechSynthesis.speak(utterance);\r
+}
+`})}),`
+`,(0,n.jsxs)(e.p,{children:[(0,n.jsx)(e.code,{children:"explanationReceived"}),` \u95A2\u6570\u306F Google Apps Script \u5074\u304B\u3089\u306E\u7D50\u679C\u3092\u53D7\u3051\u53D6\u3063\u3066\u3044\u307E\u3059\u3002\r
+\u53D7\u3051\u53D6\u3063\u305F\u8AAC\u660E\u6587\u3092\u753B\u9762\u306B\u8868\u793A\u3059\u308B\u3068\u3068\u3082\u306B\u3001Web Speech API \u3092\u4F7F\u3063\u3066\u97F3\u58F0\u3067\u8AAD\u307F\u4E0A\u3052\u3066\u3044\u307E\u3059\uFF08\u30CF\u30A4\u30E9\u30A4\u30C8\u90E82\uFF09\u3002`]}),`
+`,(0,n.jsx)(e.h3,{id:"\u30BB\u30AF\u30B7\u30E7\u30F3-ai-usage-with-image-data",children:"\u30BB\u30AF\u30B7\u30E7\u30F3: AI usage with image data"}),`
+`,(0,n.jsx)(e.p,{children:"\uFF08\u9577\u304F\u306A\u308A\u307E\u3057\u305F\u306E\u3067\u30AB\u30E1\u30E9\u306E\u6E96\u5099\u306B\u3064\u3044\u3066\u306F\u8AAC\u660E\u3092\u7701\u7565\u3057\u307E\u3059\uFF09"}),`
+`,(0,n.jsxs)(e.p,{children:["\u4EE5\u4E0B\u306B\u629C\u7C8B\u3059\u308B ",(0,n.jsx)(e.code,{children:"getImageData()"})," \u95A2\u6570\u306F\u30AB\u30E1\u30E9\u6620\u50CF\u304B\u3089\u753B\u50CF\u30C7\u30FC\u30BF\u3092\u53D6\u5F97\u3057\u3066 Base64 \u30A8\u30F3\u30B3\u30FC\u30C9\u3055\u308C\u305F\u6587\u5B57\u5217\u306B\u5909\u63DB\u3057\u3066\u3044\u307E\u3059\u3002"]}),`
+`,(0,n.jsx)(e.pre,{children:(0,n.jsx)(e.code,{className:"language-javascript",children:`function getImageData(){\r
+    const context = canvas.getContext("2d");\r
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);\r
+    return canvas.toDataURL("image/jpeg", 0.5).split(",")[1];\r
+}
+`})}),`
+`,(0,n.jsxs)(e.p,{children:[`\u3053\u308C\u3067\u5148\u307B\u3069\u3068\u540C\u69D8\u306B\u753B\u50CF\u3092\u542B\u3080\u30D7\u30ED\u30F3\u30D7\u30C8\u3092 Gemini API \u306B\u9001\u4FE1\u3059\u308B\u6E96\u5099\u304C\u3067\u304D\u307E\u3057\u305F\u3002\r
+`,(0,n.jsx)(e.code,{children:"google.script.run"})," \u7D4C\u7531\u3067 Google Apps Script \u5074\u306E ",(0,n.jsx)(e.code,{children:"describeImageGemma(image)"})," \u95A2\u6570\u3084 ",(0,n.jsx)(e.code,{children:"describeImageGemini(image)"})," \u95A2\u6570\u3092\u547C\u3073\u51FA\u3057\u3066\u3044\u307E\u3059\u3002"]}),`
+`,(0,n.jsx)(e.h3,{id:"\u30BB\u30AF\u30B7\u30E7\u30F3-speak-and-show-elements-one-by-one",children:"\u30BB\u30AF\u30B7\u30E7\u30F3: Speak and show elements one-by-one"}),`
+`,(0,n.jsxs)(e.p,{children:["\u30B9\u30AD\u30FC\u30DE\u6307\u5B9A\u3092\u5229\u7528\u3057\u305F ",(0,n.jsx)(e.code,{children:"describeImageGemini(image)"})," \u95A2\u6570\u306E\u7D50\u679C\u3092\u53D7\u3051\u53D6\u308B ",(0,n.jsx)(e.code,{children:"geminiReceived(data)"}),` \u95A2\u6570\u3067\u306F\u3001\r
+\u8981\u7D20\u306E\u4F4D\u7F6E\u60C5\u5831\u304C\u62BD\u51FA\u3067\u304D\u3066\u3044\u308B\u3053\u3068\u3092\u5229\u7528\u3057\u3066\u3001\u753B\u50CF\u4E0A\u306B\u8981\u7D20\u306E\u4F4D\u7F6E\u3092\u793A\u3059\u76EE\u5370\u3092\u8868\u793A\u3057\u306A\u304C\u3089\u8AAC\u660E\u6587\u3092\u97F3\u58F0\u3067\u8AAD\u307F\u4E0A\u3052\u308B\u51E6\u7406\u3092\u884C\u3063\u3066\u3044\u307E\u3059\u3002`]}),`
+`,(0,n.jsx)(e.p,{children:"\uFF08\u3053\u308C\u3082\u9577\u304F\u306A\u308A\u307E\u3057\u305F\u306E\u3067\u8A73\u7D30\u306F\u7701\u7565\u3057\u307E\u3059\uFF09"}),`
+`,(0,n.jsx)(e.h2,{id:"\u307E\u3068\u3081",children:"\u307E\u3068\u3081"}),`
+`,(0,n.jsx)(e.p,{children:"\u4ECA\u56DE\u306F Google Apps Script \u3067 Gemini API \u3092\u5229\u7528\u3059\u308B\u65B9\u6CD5\u3092\u898B\u3066\u304D\u307E\u3057\u305F\u3002"}),`
+`,(0,n.jsx)(e.p,{children:`\u751F\u6210AI\u3092\u4F7F\u3046\u30A2\u30D7\u30EA\u306E\u6848\u306F\u305F\u304F\u3055\u3093\u8003\u3048\u3089\u308C\u307E\u3059\u306E\u3067\u3001\u305C\u3072\u8272\u3005\u8A66\u3057\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002\r
+\u4F55\u3082\u601D\u3044\u3064\u304B\u306A\u3044\u3068\u3044\u3046\u4EBA\u3082\u307E\u305A\u306F\u4ECA\u56DE\u306E\u30B5\u30F3\u30D7\u30EB\u306E\u30D7\u30ED\u30F3\u30D7\u30C8\u3092\u5C11\u3057\u5909\u3048\u3066\u307F\u308B\u3068\u3053\u308D\u304B\u3089\u59CB\u3081\u3066\u307F\u3066\u306F\u3044\u304B\u304C\u3067\u3057\u3087\u3046\u304B\u3002`})]})}function p(r={}){let{wrapper:e}=r.components||{};return e?(0,n.jsx)(e,{...r,children:(0,n.jsx)(l,{...r})}):l(r)}return I(k);})();
+;return Component;4:["$","$Lf",null,{"code":"$10","breadcrumbs":[{"title":"Home","href":"/"},{"title":"Google Apps Script で Gemini API を使う","href":"/GAS/recipes"}],"navigations":{"prev":{"title":"Google Apps Script で LINE ボットを作成する","href":"/GAS/03-bots"}}}]
