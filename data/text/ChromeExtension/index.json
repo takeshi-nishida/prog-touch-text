@@ -6,6 +6,7 @@
     "pages": [
         "01-warmup",
         "02-getting-started",
-        "03-advanced"
+        "03-advanced",
+        "recipes"
     ]
 }

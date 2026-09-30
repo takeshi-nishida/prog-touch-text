@@ -1,0 +1,128 @@
+---
+title: "Chrome 拡張機能 レシピ集"
+description: ""
+updated: ""
+slug: "recipes"
+keywords: []
+prev: null
+next: null
+parent: null
+---
+
+# Chrome拡張機能 レシピ集
+
+## ウェブストアにある拡張機能を参考にしたい
+1. 拡張機能をインストールして、拡張機能が適用されるページを開きます
+2. 開発者ツールを開いて Sources タブを開きます
+3. 拡張機能のソースコードを観察します
+
+## 後から読み込まれる要素に対する処理
+今どきのウェブページには、まず外枠を先に表示して、中身を後から追加で表示するようになっているものがよくあります。そういうページでは「中身が表示されるより前に、拡張機能のプログラムが実行されてしまうせいでうまくいかない」ということが生じます。
+
+### 指定時刻遅らせて実行
+多くの場合、指定時刻経過後に実行する ```setTimeout()``` を使うとうまくいきます。
+
+以下の例では、改変したい要素がページ表示直後には存在しないので 1000ms 経過後に実行するようにしています。
+
+```javascript
+setTimeout(() =>{
+    const p = document.getElementById("delayed-loaded-something");
+    p.textContent = "知らんがな";
+}, 1000);
+```
+
+### 随時読み込まれ続ける場合
+スクロールすると延々とデータが読み込まれて表示されるようなページもあります。
+そういうページへの対応方法は色々ありますが、一定時間ごとに処理をする ```setInterval()``` 関数を使うのが簡単です。使い方は setTimeout とだいたい同じなのでやってみてください。（余裕があったら追記する）
+
+たとえば以下のような感じです。
+
+```javascript
+setInterval(() =>{
+    const texts = document.querySelectorAll(".unwanted-text");
+    texts.forEach(t => t.style.display = "none");
+}, 1000);
+```
+
+## 表示中のページ以外から情報を取得する
+```fetch(url)``` 関数を使うと、表示中のページ以外の URL にアクセスして、そのページの情報を取得することができます。
+たとえば、レシピサイトの検索結果一覧に、各レシピの詳細情報を付け加えて表示するような拡張機能を作ることができます。
+
+以下のプログラムは Cookpad のレシピ検索結果から各レシピの材料情報を取得してコンソールに表示する例です。
+最近は Cookpad のレシピ検索結果にもともと材料の情報が表示されるようになるなど仕様変更がありましたので動きません。
+似たような機能を作る際の参考にはなると思って残していますが、別のいい例を探しています。
+```javascript
+function getDocument(t){
+  return new DOMParser().parseFromString(t, "text/html");
+}
+
+const recipes = document.querySelectorAll(".recipe-preview");
+
+for(let i = 0; i < recipes.length; i++){
+  const recipe = recipes[i];
+  if(recipe.querySelector(".dots")){
+    const url = recipe.querySelector("a.recipe-title").getAttribute("href");
+    fetch(url)
+      .then(r => r.text())
+      .then(t => getDocument(t))
+      .then(d => d.querySelectorAll(".ingredient_name"))
+      .then(e => console.log(e))
+  }
+}
+```
+
+見慣れないかもしれない ```.then(...).then(...)``` の連打をしている部分は Promise という仕組みを使っています。Promise は「これが終わったら、その結果を使って次にこれをしてください」と約束しておくように書ける仕組みで、終わるまで時間がかかる処理を書くときに使います。
+
+今回のケースで言うと「通信して別ページの情報を取ってくる」のに時間がかかります。
+
+## 特定の通信をブロックする（難）
+SNS などの高機能なウェブアプリでは、画面の表示後にも裏で色々と通信をしています。
+たとえば、DMを見たときにそのことをサーバーに送信して伝えたりしています。
+この通信をブロックしてしまえば、既読を付けないでメッセージを読む拡張機能を作ることができたりします。
+
+Chrome には HTTP の通信を監視・改変するための [declarativeNetRequest](https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/)
+という仕組みが用意されています。
+
+ブロックするべき通信を探すには開発者ツールの「network」タブで通信を観察します。
+ブロックできたかどうかの確認もここからできます。
+
+declarativeNetRequest を使う場合には manifest.json に以下のような記述を追加します。
+
+```javascript
+{
+    "name": "Instagram test",
+    "description": "Instagram test",
+    "version": "0.1",
+    "manifest_version": 3,
+
+    "declarative_net_request": {
+        "rule_resources": [{
+          "id": "ruleset_1",
+          "enabled": true,
+          "path": "rules.json"
+        }]
+      },
+
+    "permissions": [
+        "declarativeNetRequest"
+    ],
+    "host_permissions":[
+      "https://www.instagram.com/*"
+    ]
+}  
+```
+
+さらに rules.json というファイルを作成して、ブロックしたい通信内容についてのルールを書きます。
+```javascript
+[
+    {
+        "id": 1,
+        "priority": 1,
+        "action": { "type": "block" },
+        "condition": {
+            "urlFilter": "https://www.instagram.com/api/*/seen/",
+            "resourceTypes": ["xmlhttprequest"]
+        }
+    }
+]
+```
