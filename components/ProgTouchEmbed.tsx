@@ -2,7 +2,7 @@
 
 import React, { useState, createContext, useContext } from 'react';
 import { isStepElement, resolveSteps } from './Step';
-import { extractCodeFromPre, isPreElement, findPreElement } from '@/lib/react-utils';
+import { extractCodeFromPre, findPreElement } from '@/lib/react-utils';
 import { CodeWithPreview } from './CodeWithPreview';
 import { CodeBlock } from './CodeBlock';
 
@@ -97,37 +97,37 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
 
     return (
         <ProgTouchEmbedProvider value={true}>
-            <div className="prog-touch-embed border rounded-lg p-4 my-4 bg-gray-50">
+            <div className="prog-touch-embed border border-gray-200 dark:border-gray-800 rounded-lg p-4 my-4 bg-gray-50 dark:bg-gray-900/60">
 
                 {/* Controls */}
-                <div className="controls flex gap-2 items-center">
+                <div className="controls flex gap-2 items-center flex-wrap">
                     <button
                         onClick={prevStep}
                         disabled={currentStep === 0}
-                        className="px-3 py-1 bg-blue-500 text-white rounded disabled:bg-gray-300"
+                        className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded disabled:bg-gray-300 dark:disabled:bg-gray-800 dark:disabled:text-gray-500 transition-colors"
                     >
                         前へ
                     </button>
                     <button
                         onClick={nextStep}
                         disabled={currentStep === stepElements.length - 1}
-                        className="px-3 py-1 bg-blue-500 text-white rounded disabled:bg-gray-300"
+                        className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded disabled:bg-gray-300 dark:disabled:bg-gray-800 dark:disabled:text-gray-500 transition-colors"
                     >
                         次へ
                     </button>
                     <button
                         onClick={reset}
-                        className="px-3 py-1 bg-gray-500 text-white rounded"
+                        className="px-3 py-1 bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded transition-colors"
                     >
                         リセット
                     </button>
-                    <span className="text-sm text-gray-600 flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 flex items-center">
                         ステップ {currentStep + 1} / {stepElements.length}
                     </span>
                     <button
                         className={`ml-auto px-3 py-1 rounded transition-transform ${maskHighlight
-                            ? 'bg-red-500 text-white scale-105 shadow-lg'
-                            : 'bg-blue-500 text-white scale-100'
+                            ? 'bg-red-500 hover:bg-red-600 text-white scale-105 shadow-lg'
+                            : 'bg-blue-600 hover:bg-blue-700 text-white scale-100'
                             }`}
                         onClick={() => setMaskHighlight(!maskHighlight)}
                     >
@@ -138,22 +138,22 @@ export function ProgTouchEmbed({ children }: { children: React.ReactNode }) {
                 {/* Thoughts display with undo styling */}
                 {thoughts && (
                     <div className={`thoughts my-4 p-3 border-l-2 italic flex items-center ${isUndoStep
-                            ? 'bg-red-50 border-red-400 text-red-800'
-                            : 'bg-blue-50 border-blue-400 text-blue-800'
+                            ? 'bg-red-50 dark:bg-red-950/40 border-red-400 dark:border-red-500 text-red-800 dark:text-red-200'
+                            : 'bg-blue-50 dark:bg-blue-950/40 border-blue-400 dark:border-blue-500 text-blue-800 dark:text-blue-200'
                         }`}>
                         <span className="mr-2">{thoughts}</span>
                         {!isUndoStep && <div className="flex space-x-1">
-                            <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
-                            <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                            <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                            <div className="w-3 h-3 bg-blue-400 dark:bg-blue-300 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                            <div className="w-3 h-3 bg-blue-400 dark:bg-blue-300 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                            <div className="w-3 h-3 bg-blue-400 dark:bg-blue-300 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
                         </div>}
                     </div>
                 )}
 
                 {/* Undone code display */}
                 {shouldShowComparison && undoneStep && (
-                    <div className="mb-3 p-2 bg-red-50 border-l-2 border-red-300">
-                        <div className="text-red-600 font-medium mb-2 text-sm">
+                    <div className="mb-3 p-2 bg-red-50 dark:bg-red-950/40 border-l-2 border-red-300 dark:border-red-700">
+                        <div className="text-red-600 dark:text-red-400 font-medium mb-2 text-sm">
                             {isUndoStep ? '削除:' : '前回:'}
                         </div>
                         <CodeBlock code={undoneCode} language="javascript" showCopyButton={false} className="text-xs" />

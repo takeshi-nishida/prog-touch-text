@@ -20,9 +20,9 @@ import { Step } from '@/components/Step';
 
 function TocSidebar({ toc }: { toc: Toc }) {
   return (
-    <nav className="text-sm p-4 bg-blue-50 rounded-lg border border-blue-100 sticky top-8">
-      <Link href="/" className="block mb-8 text-blue-700 hover:underline">Home</Link>
-      <div className="font-bold mb-2">目次</div>
+    <nav className="text-sm p-4 bg-blue-50 dark:bg-slate-900 rounded-lg border border-blue-100 dark:border-slate-800 lg:sticky lg:top-8">
+      <Link href="/" className="block mb-8 text-blue-700 dark:text-blue-400 hover:underline">Home</Link>
+      <div className="font-bold mb-2 text-gray-900 dark:text-gray-100">目次</div>
       <ul>
         {toc.map(item => (
           <TocListItem key={item.id} item={item} />
@@ -37,7 +37,7 @@ function TocListItem({ item }: { item: TocEntry }) {
     <li className='my-2'>
       <a
         href={`#${item.id}`}
-        className="hover:underline text-blue-700 cursor-pointer transition-colors duration-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="hover:underline text-blue-700 dark:text-blue-400 cursor-pointer transition-colors duration-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
         tabIndex={0}
         aria-label={`Jump to ${item.value}`}
       >
@@ -62,16 +62,16 @@ export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
 
   function createComponents() {
     return {
-      h1: (props: ComponentProps<'h1'>) => <h1 className="text-3xl font-bold my-4" {...props} />,
-      h2: (props: ComponentProps<'h2'>) => <h2 className="text-2xl font-bold my-3" {...props} />,
-      h3: (props: ComponentProps<'h3'>) => <h3 className="text-xl font-bold my-2" {...props} />,
-      h4: (props: ComponentProps<'h4'>) => <h4 className="text-lg font-bold my-2" {...props} />,
+      h1: (props: ComponentProps<'h1'>) => <h1 className="text-3xl font-bold my-4 text-gray-900 dark:text-gray-100" {...props} />,
+      h2: (props: ComponentProps<'h2'>) => <h2 className="text-2xl font-bold my-3 text-gray-900 dark:text-gray-100" {...props} />,
+      h3: (props: ComponentProps<'h3'>) => <h3 className="text-xl font-bold my-2 text-gray-900 dark:text-gray-100" {...props} />,
+      h4: (props: ComponentProps<'h4'>) => <h4 className="text-lg font-bold my-2 text-gray-900 dark:text-gray-100" {...props} />,
       p: (props: ComponentProps<'p'>) => <p className="my-4" {...props} />,
-      a: (props: ComponentProps<'a'>) => <MdxLink className="text-blue-600 underline" {...props} />,
+      a: (props: ComponentProps<'a'>) => <MdxLink className="text-blue-600 dark:text-blue-400 underline hover:text-blue-700 dark:hover:text-blue-300" {...props} />,
       ul: (props: ComponentProps<'ul'>) => <ul className="list-disc ml-8 my-4" {...props} />,
       ol: (props: ComponentProps<'ol'>) => <ol className="list-decimal ml-8 my-8" {...props} />,
       li: (props: ComponentProps<'li'>) => <li className="my-1 mb-2" {...props} />,
-      blockquote: (props: ComponentProps<'blockquote'>) => <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4 text-gray-600" {...props} />,
+      blockquote: (props: ComponentProps<'blockquote'>) => <blockquote className="border-l-4 border-gray-300 dark:border-gray-700 pl-4 italic my-4 text-gray-600 dark:text-gray-400" {...props} />,
       code: (props: ComponentProps<'code'>) => {
         const className = props.className || '';
         const isBlock = className.startsWith('language-');
@@ -84,26 +84,26 @@ export default function MdxPageRenderer({ code, breadcrumbs, navigations }:
         const { code, language, preview, highlightLines } = extractCodeFromPre(props) || { code: '', language: 'plaintext', preview: false, highlightLines: [] };
         return preview ? <CodeWithPreview code={code} language={language} highlightLines={highlightLines} {...props} /> : <CodeBlock code={code} language={language} highlightLines={highlightLines} {...props} />;
       },
-      img: (props: ComponentProps<'img'>) => <img className="my-8 max-w-full max-h-[480px] mx-auto rounded-lg shadow-lg shadow-gray-500" {...props} />,
+      img: (props: ComponentProps<'img'>) => <img className="my-8 max-w-full max-h-[480px] mx-auto rounded-lg shadow-lg shadow-gray-500/20 dark:shadow-none dark:border dark:border-gray-800" {...props} />,
       ProgTouchEmbed,
       Step
     }
   };
 
   return (
-    <div className="flex gap-8">
-      <aside className="w-64 shrink-0 hidden lg:block">
+    <div className="flex w-full min-w-0 flex-col gap-8 px-4 sm:px-6 lg:flex-row">
+      <aside className="w-full shrink-0 lg:w-64">
         <TocSidebar toc={toc} />
       </aside>
-      <article className="max-w-4xl mx-auto mt-8 flex-1 leading-relaxed text-gray-800">
+      <article className="mx-auto mt-8 w-full min-w-0 max-w-4xl flex-1 leading-relaxed text-gray-900 dark:text-gray-100 [overflow-wrap:anywhere]">
         <Breadcrumbs items={breadcrumbs} />
         <Component components={createComponents()} />
-        <div className="flex justify-between my-8">
+        <div className="my-8 flex flex-wrap justify-between gap-4">
           {navigations.prev ? (
-            <Link href={navigations.prev.href} className="text-blue-600 hover:underline">← Prev: {navigations.prev.title}</Link>
+            <Link href={navigations.prev.href} className="text-blue-600 dark:text-blue-400 hover:underline">← Prev: {navigations.prev.title}</Link>
           ) : <div />}
           {navigations.next ? (
-            <Link href={navigations.next.href} className="text-blue-600 hover:underline">Next: {navigations.next.title} →</Link>
+            <Link href={navigations.next.href} className="text-blue-600 dark:text-blue-400 hover:underline">Next: {navigations.next.title} →</Link>
           ) : <div />}
         </div>
       </article>

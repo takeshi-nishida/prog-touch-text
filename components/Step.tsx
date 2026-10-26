@@ -13,10 +13,10 @@ export function Step({ children, thoughts, at, undo }: StepProps) {
     const { code, language } = extractCodeFromPre({ children }) || { code: '', language: 'plaintext' };
 
     return (
-        <div className="step border-l-4 border-green-500 pl-4 py-2 my-2 bg-white rounded-r">
+        <div className="step border-l-4 border-green-500 pl-4 py-2 my-2 bg-white dark:bg-gray-800 rounded-r text-gray-900 dark:text-gray-100">
             {children || <p>ステップ内容</p>}
-            {thoughts && <p className="text-gray-500 italic">思考: {thoughts}</p>}
-            <p>written in {language}</p>
+            {thoughts && <p className="text-gray-500 dark:text-gray-400 italic">思考: {thoughts}</p>}
+            <p className="text-gray-500 dark:text-gray-400 text-sm">written in {language}</p>
         </div>
     );
 }

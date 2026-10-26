@@ -71,8 +71,8 @@ export function CodeWithPreview({
             </div>
             
             <div className="flex-1">
-                <div className="border border-gray-500 rounded my-4 overflow-hidden">
-                    <div className="bg-gray-100 px-3 py-1 border-b border-gray-500 text-sm font-medium">
+                <div className="border border-gray-300 dark:border-gray-700 rounded my-4 overflow-hidden">
+                    <div className="bg-gray-100 dark:bg-gray-800 px-3 py-1 border-b border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-800 dark:text-gray-200">
                         実行結果
                     </div>
                     <iframe

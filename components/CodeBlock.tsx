@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import type { ComponentProps } from 'react';
 import { Highlight, themes } from 'prism-react-renderer';
+import { useIsDarkMode } from '@/lib/use-dark-mode';
 
 type CodeBlockProps = {
     code: string;
@@ -24,6 +25,7 @@ export function CodeBlock({
 }: CodeBlockProps) {
     const [copied, setCopied] = useState(false);
     const preRef = useRef<HTMLPreElement | null>(null);
+    const isDark = useIsDarkMode();
 
     useEffect(() => { // scroll to first highlighted line
         if (!preRef.current) return;
@@ -47,20 +49,23 @@ export function CodeBlock({
 
     return (
         <div className="relative">
-            {showCopyButton && (<button
-                className="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 text-sm px-2 py-1 rounded z-10"
-                onClick={handleCopy}
-            >{copied ? 'Copied!' : 'Copy'}</button>
+            {showCopyButton && (
+                <button
+                    className="absolute top-2 right-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm px-2 py-1 rounded z-10 transition-colors"
+                    onClick={handleCopy}
+                >
+                    {copied ? 'Copied!' : 'Copy'}
+                </button>
             )}
             <Highlight
-                theme={themes.github}
+                theme={isDark ? themes.vsDark : themes.github}
                 code={code}
                 language={language}
             >
                 {({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <pre
                         ref={preRef}
-                        className={className + " border border-gray-500 rounded p-2 my-4 overflow-x-auto overflow-y-auto overscroll-none max-h-100"}
+                        className={className + " border border-gray-300 dark:border-gray-700 rounded p-2 my-4 overflow-x-auto overflow-y-auto overscroll-none max-h-100"}
                         style={style}
                         {...props}
                     >
@@ -78,13 +83,13 @@ export function CodeBlock({
                                     {...restLineProps}
                                     className={`
                                         ${lineClassName || ''}
-                                        ${isHighlighted ? 'bg-yellow-100' : ''}
-                                        ${isCursor ? 'bg-blue-50 border-l-4 border-blue-400 pl-2' : ''}
+                                        ${isHighlighted ? 'bg-yellow-100 dark:bg-yellow-950/60' : ''}
+                                        ${isCursor ? 'bg-blue-50 dark:bg-blue-950/60 border-l-4 border-blue-400' : ''}
                                     `.trim()}
                                     style={{
                                         ...lineStyle,
-                                        ...(isHighlighted ? { backgroundColor: '#fef3c7' } : {}),
-                                        ...(isCursor ? { backgroundColor: '#eff6ff' } : {}),
+                                        ...(isHighlighted ? { backgroundColor: isDark ? 'rgba(234, 179, 8, 0.25)' : '#fef3c7' } : {}),
+                                        ...(isCursor ? { backgroundColor: isDark ? 'rgba(59, 130, 246, 0.25)' : '#eff6ff' } : {}),
                                     }}
                                 >
                                     {line.map((token, key) => (
